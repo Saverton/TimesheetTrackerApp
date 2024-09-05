@@ -7,8 +7,9 @@ namespace TimesheetTracker
 {
 	public partial class DashboardForm : Form, IRequestData<ProjectModel>, IRequestData<WorkLogModel>
     {
-        private readonly BindingList<ProjectModel> projects = new BindingList<ProjectModel>(TimesheetTrackerDataAccess.GetAllProjects());
+        private readonly BindingList<ProjectModel> _projects = new(TimesheetTrackerDataAccess.GetAllProjects());
         private TimeSpan _timeSpan = TimeSpan.Zero;
+        private DateOnly _dateToSave = DateOnly.FromDateTime(DateTime.Now);
         private bool _isTimerRunning = false;
         private bool _isWorkSaved = true;
         private ProjectModel? _currentProject;
@@ -47,7 +48,7 @@ namespace TimesheetTracker
 
         private void WireUpLists()
         {
-            ProjectsComboBox.DataSource = projects;
+            ProjectsComboBox.DataSource = _projects;
             ProjectsComboBox.DisplayMember = "ProjectName";
         }
 
@@ -63,8 +64,8 @@ namespace TimesheetTracker
 
             if (projectIndex == -1)
             {
-                projects.Add(project);
-                projectIndex = projects.Count - 1;
+                _projects.Add(project);
+                projectIndex = _projects.Count - 1;
             }
 
             ProjectsComboBox.SelectedIndex = projectIndex;
@@ -108,6 +109,15 @@ namespace TimesheetTracker
 
         private void Timer_Tick(object sender, EventArgs e)
         {
+            // handle timer running into the next day
+            var today = DateOnly.FromDateTime(DateTime.Now);
+            if (_dateToSave != today)
+            {
+                this.SaveWorkLog();
+                _dateToSave = today;
+                _timeSpan = TimeSpan.Zero;
+            }
+
             _timeSpan = _timeSpan.Add(new TimeSpan(0, 0, 1));
             TimerLabel.Text = _timeSpan.ToString(@"hh\:mm\:ss");
             MarkWorkAsUnsaved();
@@ -153,12 +163,12 @@ namespace TimesheetTracker
         private int GetProjectIndex(ProjectModel project)
         {
             int output = -1;
-            for (int i = 0; i < projects.Count; i++)
+            for (int i = 0; i < _projects.Count; i++)
             {
-                if (projects[i].Id == project.Id)
+                if (_projects[i].Id == project.Id)
                 {
                     output = i;
-                    projects[i] = project;
+                    _projects[i] = project;
                     break;
                 }
             }
@@ -182,7 +192,8 @@ namespace TimesheetTracker
             {
                 ProjectId = _currentProject.Id,
                 HoursWorked = _timeSpan.TotalHours,
-                Notes = NotesTextBox.Text
+                Notes = NotesTextBox.Text,
+                Date = _dateToSave.ToString("yyyy-MM-dd"),
             };
 
             TimesheetTrackerDataAccess.UpsertWorkLog(workLog);
