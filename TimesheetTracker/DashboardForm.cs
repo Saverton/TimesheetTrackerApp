@@ -280,7 +280,7 @@ namespace TimesheetTracker
 
 		public void ReceiveData(WorkLogModel data)
 		{
-            if (data.ProjectId == _currentProject?.Id)
+            if (data.ProjectId == _currentProject?.Id && DateOnly.Parse(data.Date) == DateOnly.FromDateTime(DateTime.Now))
             {
                 NotesTextBox.Text = data.Notes;
 				_timeSpan = TimesheetTrackerLogic.GetTimeSpanFromHoursWorked(data.HoursWorked);
