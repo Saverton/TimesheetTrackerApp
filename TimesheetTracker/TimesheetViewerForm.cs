@@ -47,7 +47,7 @@ namespace TimesheetTracker
 
 		private void LoadWeeks(int year)
 		{
-			weeks.Clear();
+            weeks = [];
 			var weekTime = new DateOnly(year, 1, 1);
 
 			while (weekTime.DayOfWeek != DayOfWeek.Sunday)
@@ -108,7 +108,6 @@ namespace TimesheetTracker
 				return;
 			}
 
-			workLogs.Clear();
 			workLogs = TimesheetTrackerDataAccess.GetWorkLogsInDateRange(week.StartDate, week.EndDate);
 
 			timesheetTable.Rows.Clear();
