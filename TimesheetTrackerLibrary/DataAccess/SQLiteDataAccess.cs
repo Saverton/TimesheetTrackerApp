@@ -17,7 +17,17 @@ namespace TimesheetTrackerLibrary.DataAccess
 		{
             string exeFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
             string baseDir = Path.GetDirectoryName(exeFullPath)!;
-            string dbPath = Path.Combine(baseDir, "TimesheetTracker.db");
+            string dbTemplatePath = Path.Combine(baseDir, "TimesheetTracker.db");
+
+            string userDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            string dbDir = Path.Combine(userDir, "AppData\\Local\\TimesheetTracker");
+            string dbPath = Path.Combine(dbDir, "TimesheetTracker.db");
+
+            if (!File.Exists(dbPath))
+            {
+                Directory.CreateDirectory(dbDir);
+                File.Copy(dbTemplatePath, dbPath);
+            }
 
 			_connectionString = $"Data Source={dbPath};Version=3;";
 		}

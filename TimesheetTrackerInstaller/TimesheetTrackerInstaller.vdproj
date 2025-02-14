@@ -21,12 +21,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_52A608C4A2F649E49723A3C21523FA47"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_5E93BEAB3A8E4B44974E907140B5FFFF"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -116,26 +110,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_52A608C4A2F649E49723A3C21523FA47"
-            {
-            "SourcePath" = "8:..\\TimesheetTracker\\TimesheetTracker.db"
-            "TargetName" = "8:TimesheetTracker.db"
-            "Tag" = "8:"
-            "Folder" = "8:_091FDE19A7C64AAE8431B07FC75D0DB1"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:TRUE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
         }
         "FileType"
         {
@@ -193,7 +167,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Timesheet Tracker"
         "ProductCode" = "8:{D1F819FC-A034-4FEF-8C62-BB03BD5EB799}"
-        "PackageCode" = "8:{00DE7F45-6B2E-482E-8F03-64E656D83D18}"
+        "PackageCode" = "8:{7115E4B1-D832-4394-9A22-6727A1397FAC}"
         "UpgradeCode" = "8:{907EFDEC-2904-40FA-9C65-BC67592D65D3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -742,7 +716,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_5E93BEAB3A8E4B44974E907140B5FFFF"
             {
-            "SourcePath" = "8:..\\TimesheetTracker\\obj\\Debug\\net8.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\TimesheetTracker\\obj\\Release\\net8.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_091FDE19A7C64AAE8431B07FC75D0DB1"
