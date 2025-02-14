@@ -133,7 +133,7 @@ namespace TimesheetTracker
 
             foreach (var projectLogs in logsByProject)
             {
-                List<object?> row = [projectLogs.First().Project!.LongDisplay];
+                List<object?> row = [projectLogs.First().Project];
 
                 double totalHoursThisWeek = 0;
 

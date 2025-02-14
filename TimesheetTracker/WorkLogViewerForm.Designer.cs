@@ -29,22 +29,11 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WorkLogViewerForm));
-            ProjectLabel = new Label();
             DatePicker = new DateTimePicker();
             HoursWorkedTextBox = new TextBox();
             NotesTextBox = new RichTextBox();
+            ProjectDisplayTextBox = new TextBox();
             SuspendLayout();
-            // 
-            // ProjectLabel
-            // 
-            ProjectLabel.AccessibleRole = AccessibleRole.TitleBar;
-            ProjectLabel.AutoEllipsis = true;
-            ProjectLabel.AutoSize = true;
-            ProjectLabel.Location = new Point(12, 9);
-            ProjectLabel.Name = "ProjectLabel";
-            ProjectLabel.Size = new Size(216, 30);
-            ProjectLabel.TabIndex = 0;
-            ProjectLabel.Text = "<project> (00000.000)";
             // 
             // DatePicker
             // 
@@ -52,42 +41,52 @@
             DatePicker.CustomFormat = "ddd, MMM dd, yyyy";
             DatePicker.Enabled = false;
             DatePicker.Format = DateTimePickerFormat.Custom;
-            DatePicker.Location = new Point(12, 42);
+            DatePicker.Location = new Point(12, 52);
             DatePicker.Name = "DatePicker";
-            DatePicker.Size = new Size(310, 35);
+            DatePicker.Size = new Size(310, 42);
             DatePicker.TabIndex = 1;
             DatePicker.Value = new DateTime(2024, 5, 15, 11, 59, 1, 0);
             // 
             // HoursWorkedTextBox
             // 
             HoursWorkedTextBox.Enabled = false;
-            HoursWorkedTextBox.Location = new Point(12, 83);
+            HoursWorkedTextBox.Location = new Point(12, 100);
             HoursWorkedTextBox.Name = "HoursWorkedTextBox";
-            HoursWorkedTextBox.Size = new Size(310, 35);
+            HoursWorkedTextBox.Size = new Size(310, 42);
             HoursWorkedTextBox.TabIndex = 2;
             HoursWorkedTextBox.Text = "00:00";
             HoursWorkedTextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // NotesTextBox
             // 
-            NotesTextBox.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            NotesTextBox.Location = new Point(12, 124);
+            NotesTextBox.Enabled = false;
+            NotesTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            NotesTextBox.Location = new Point(12, 148);
             NotesTextBox.Name = "NotesTextBox";
             NotesTextBox.ScrollBars = RichTextBoxScrollBars.Vertical;
             NotesTextBox.Size = new Size(310, 225);
             NotesTextBox.TabIndex = 3;
             NotesTextBox.Text = "";
             // 
+            // ProjectDisplayTextBox
+            // 
+            ProjectDisplayTextBox.Enabled = false;
+            ProjectDisplayTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ProjectDisplayTextBox.Location = new Point(12, 12);
+            ProjectDisplayTextBox.Name = "ProjectDisplayTextBox";
+            ProjectDisplayTextBox.Size = new Size(310, 34);
+            ProjectDisplayTextBox.TabIndex = 4;
+            // 
             // WorkLogViewerForm
             // 
-            AutoScaleDimensions = new SizeF(12F, 30F);
+            AutoScaleDimensions = new SizeF(14F, 36F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(334, 361);
+            ClientSize = new Size(334, 387);
+            Controls.Add(ProjectDisplayTextBox);
             Controls.Add(NotesTextBox);
             Controls.Add(HoursWorkedTextBox);
             Controls.Add(DatePicker);
-            Controls.Add(ProjectLabel);
             Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(5, 6, 5, 6);
@@ -98,10 +97,9 @@
         }
 
         #endregion
-
-        private Label ProjectLabel;
-		private DateTimePicker DatePicker;
+        private DateTimePicker DatePicker;
 		private TextBox HoursWorkedTextBox;
         private RichTextBox NotesTextBox;
+        private TextBox ProjectDisplayTextBox;
     }
 }

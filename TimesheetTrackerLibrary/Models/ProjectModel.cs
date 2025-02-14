@@ -26,9 +26,11 @@ namespace TimesheetTrackerLibrary.Models
 			get => $"{ProjectName} ({ShortDisplay})";
 		}
 
+        public string ProjectNumberPhase => $"{ProjectNumber}.{ProjectPhase}";
+
 		public override string ToString()
 		{
-			return ShortDisplay;
+			return LongDisplay;
 		}
 	}
 }
