@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimesheetTracker", "Timeshe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimesheetTrackerLibrary", "TimesheetTrackerLibrary\TimesheetTrackerLibrary.csproj", "{379E1375-71E5-4AD1-B25F-53A3AF4B8FA9}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "TimesheetTrackerInstaller", "TimesheetTrackerInstaller\TimesheetTrackerInstaller.vdproj", "{A61BC578-C809-18D3-CC49-A6C3855E6395}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,8 @@ Global
 		{379E1375-71E5-4AD1-B25F-53A3AF4B8FA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{379E1375-71E5-4AD1-B25F-53A3AF4B8FA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{379E1375-71E5-4AD1-B25F-53A3AF4B8FA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A61BC578-C809-18D3-CC49-A6C3855E6395}.Debug|Any CPU.ActiveCfg = Debug
+		{A61BC578-C809-18D3-CC49-A6C3855E6395}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
