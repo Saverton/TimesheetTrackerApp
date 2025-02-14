@@ -13,9 +13,13 @@ namespace TimesheetTrackerLibrary.DataAccess
 	{
 		private readonly string _connectionString;
 
-		public SQLiteDataAccess(string connectionString)
+		public SQLiteDataAccess()
 		{
-			_connectionString = connectionString;
+            string exeFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string baseDir = Path.GetDirectoryName(exeFullPath)!;
+            string dbPath = Path.Combine(baseDir, "TimesheetTracker.db");
+
+			_connectionString = $"Data Source={dbPath};Version=3;";
 		}
 
 		public List<T> LoadData<T, U>(string sql, U parameters)

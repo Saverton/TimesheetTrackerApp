@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TimesheetTrackerLibrary.Models;
+﻿using TimesheetTrackerLibrary.Models;
 
 namespace TimesheetTrackerLibrary.DataAccess
 {
 	public static class TimesheetTrackerDataAccess
 	{
-		private static IDataAccess _database = new SQLiteDataAccess(GlobalConfig.GetConnectionString("Default"));
+		private static IDataAccess _database = new SQLiteDataAccess();
 
 		public static List<WorkLogModel> GetWorkLogsInDateRange(DateOnly startDate, DateOnly endDate)
 		{

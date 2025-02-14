@@ -46,7 +46,7 @@ namespace TimesheetTracker
             {
                 TimerControlBtn.Enabled = true;
                 NotesTextBox.Enabled = true;
-                if (_isTimerRunning == false && _isWorkSaved == false)
+                if (_isWorkSaved == false)
                 {
                     SaveBtn.Enabled = true;
                 }
