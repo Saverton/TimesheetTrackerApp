@@ -33,7 +33,7 @@ namespace TimesheetTracker
 				var key = GetRegistryKey();
 				if (key.GetValue(SUBKEY) is not null)
 				{
-					key.DeleteValue(SUBKEY);
+					key.DeleteValue(SUBKEY, false);
 				}
 			}
 		}
