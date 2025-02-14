@@ -60,32 +60,9 @@ namespace TimesheetTracker
             {
                 if (_isWorkSaved == false)
                 {
-                    // prevent shutdown until work is saved
-                    ShutdownBlockReasonCreate(Handle, "Saving timesheet...");
-                    ThreadPool.QueueUserWorkItem(o =>
-                    {
-                        string message = "Timesheets saving...";
-                        try
-                        {
-                            SaveWorkLog();
-                            message = "Timesheets saved successfully!";
-                        }
-                        catch
-                        {
-                            message = "Timesheets failed to save.";
-                        }
-                        finally
-                        {
-                            BeginInvoke(() =>
-                            {
-                                ShutdownBlockReasonCreate(Handle, message);
-                                ShutdownBlockReasonDestroy(Handle);
-                            });
-                        }
-                    });
+                    SetTimerRunning(false);
+                    SaveWorkLog();
                 }
-
-                return;
             }
 
             base.WndProc(ref m);

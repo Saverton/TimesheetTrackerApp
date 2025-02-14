@@ -52,17 +52,18 @@
             // 
             // ProjectsComboBox
             // 
+            ProjectsComboBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ProjectsComboBox.FormattingEnabled = true;
             ProjectsComboBox.Location = new Point(12, 38);
             ProjectsComboBox.Name = "ProjectsComboBox";
-            ProjectsComboBox.Size = new Size(310, 44);
+            ProjectsComboBox.Size = new Size(310, 36);
             ProjectsComboBox.TabIndex = 0;
             ProjectsComboBox.SelectedIndexChanged += ProjectsComboBox_SelectedValueChanged;
             // 
             // AddProjectLink
             // 
             AddProjectLink.AutoSize = true;
-            AddProjectLink.Location = new Point(184, 85);
+            AddProjectLink.Location = new Point(184, 77);
             AddProjectLink.Name = "AddProjectLink";
             AddProjectLink.Size = new Size(66, 37);
             AddProjectLink.TabIndex = 1;
@@ -73,7 +74,7 @@
             // EditProjectLink
             // 
             EditProjectLink.AutoSize = true;
-            EditProjectLink.Location = new Point(256, 85);
+            EditProjectLink.Location = new Point(256, 77);
             EditProjectLink.Name = "EditProjectLink";
             EditProjectLink.Size = new Size(63, 37);
             EditProjectLink.TabIndex = 2;
@@ -84,7 +85,7 @@
             // TimerLabel
             // 
             TimerLabel.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            TimerLabel.Location = new Point(12, 122);
+            TimerLabel.Location = new Point(12, 114);
             TimerLabel.Name = "TimerLabel";
             TimerLabel.Size = new Size(310, 56);
             TimerLabel.TabIndex = 3;
@@ -93,7 +94,7 @@
             // 
             // TimerControlBtn
             // 
-            TimerControlBtn.Location = new Point(12, 181);
+            TimerControlBtn.Location = new Point(12, 173);
             TimerControlBtn.Name = "TimerControlBtn";
             TimerControlBtn.Size = new Size(310, 50);
             TimerControlBtn.TabIndex = 4;
@@ -106,7 +107,7 @@
             SaveBtn.AutoSize = true;
             SaveBtn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             SaveBtn.Enabled = false;
-            SaveBtn.Location = new Point(240, 356);
+            SaveBtn.Location = new Point(240, 388);
             SaveBtn.Name = "SaveBtn";
             SaveBtn.Size = new Size(82, 47);
             SaveBtn.TabIndex = 7;
@@ -119,7 +120,7 @@
             NotesLabel.AutoSize = true;
             NotesLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             NotesLabel.ForeColor = SystemColors.ControlDarkDark;
-            NotesLabel.Location = new Point(12, 234);
+            NotesLabel.Location = new Point(12, 226);
             NotesLabel.Name = "NotesLabel";
             NotesLabel.Size = new Size(64, 28);
             NotesLabel.TabIndex = 8;
@@ -192,10 +193,10 @@
             // NotesTextBox
             // 
             NotesTextBox.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            NotesTextBox.Location = new Point(12, 265);
+            NotesTextBox.Location = new Point(12, 257);
             NotesTextBox.Name = "NotesTextBox";
             NotesTextBox.ScrollBars = RichTextBoxScrollBars.Vertical;
-            NotesTextBox.Size = new Size(310, 85);
+            NotesTextBox.Size = new Size(310, 125);
             NotesTextBox.TabIndex = 5;
             NotesTextBox.Text = "";
             NotesTextBox.TextChanged += NotesTextBox_TextChanged;
@@ -205,7 +206,7 @@
             AutoScaleDimensions = new SizeF(14F, 36F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(334, 417);
+            ClientSize = new Size(334, 447);
             Controls.Add(NotesTextBox);
             Controls.Add(NotesLabel);
             Controls.Add(SaveBtn);
