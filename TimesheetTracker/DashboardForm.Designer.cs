@@ -39,6 +39,7 @@
             NotesLabel = new Label();
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
+            settingsToolStripMenuItem = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
             editToolStripMenuItem = new ToolStripMenuItem();
             workLogsToolStripMenuItem = new ToolStripMenuItem();
@@ -46,7 +47,6 @@
             timesheetsToolStripMenuItem = new ToolStripMenuItem();
             Timer = new System.Windows.Forms.Timer(components);
             NotesTextBox = new RichTextBox();
-            settingsToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -106,7 +106,7 @@
             SaveBtn.AutoSize = true;
             SaveBtn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             SaveBtn.Enabled = false;
-            SaveBtn.Location = new Point(237, 356);
+            SaveBtn.Location = new Point(240, 356);
             SaveBtn.Name = "SaveBtn";
             SaveBtn.Size = new Size(82, 47);
             SaveBtn.TabIndex = 7;
@@ -142,10 +142,17 @@
             fileToolStripMenuItem.Size = new Size(46, 24);
             fileToolStripMenuItem.Text = "File";
             // 
+            // settingsToolStripMenuItem
+            // 
+            settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            settingsToolStripMenuItem.Size = new Size(145, 26);
+            settingsToolStripMenuItem.Text = "Settings";
+            settingsToolStripMenuItem.Click += settingsToolStripMenuItem_Click;
+            // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(224, 26);
+            exitToolStripMenuItem.Size = new Size(145, 26);
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
@@ -192,13 +199,6 @@
             NotesTextBox.TabIndex = 5;
             NotesTextBox.Text = "";
             NotesTextBox.TextChanged += NotesTextBox_TextChanged;
-            // 
-            // settingsToolStripMenuItem
-            // 
-            settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            settingsToolStripMenuItem.Size = new Size(224, 26);
-            settingsToolStripMenuItem.Text = "Settings";
-            settingsToolStripMenuItem.Click += settingsToolStripMenuItem_Click;
             // 
             // DashboardForm
             // 
