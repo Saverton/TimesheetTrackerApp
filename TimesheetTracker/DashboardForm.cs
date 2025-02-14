@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Runtime.InteropServices;
 using TimesheetTrackerLibrary;
 using TimesheetTrackerLibrary.DataAccess;
 using TimesheetTrackerLibrary.Models;
@@ -7,6 +8,14 @@ namespace TimesheetTracker
 {
 	public partial class DashboardForm : Form, IRequestData<ProjectModel>, IRequestData<WorkLogModel>
     {
+        public const int WM_QUERYENDSESSION = 0x0011;
+        public const int WM_ENDSESSION = 0x0016;
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern bool ShutdownBlockReasonCreate(IntPtr hWnd, [MarshalAs(UnmanagedType.LPWStr)] string reason);
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern bool ShutdownBlockReasonDestroy(IntPtr hWnd);
+
         private readonly BindingList<ProjectModel> _projects = new(TimesheetTrackerDataAccess.GetAllProjects());
         private TimeSpan _timeSpan = TimeSpan.Zero;
         private DateOnly _dateToSave = DateOnly.FromDateTime(DateTime.Now);
@@ -43,6 +52,43 @@ namespace TimesheetTracker
                 }
                 EditProjectLink.Enabled = true;
             }
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == WM_QUERYENDSESSION || m.Msg == WM_ENDSESSION)
+            {
+                if (_isWorkSaved == false)
+                {
+                    // prevent shutdown until work is saved
+                    ShutdownBlockReasonCreate(Handle, "Saving timesheet...");
+                    ThreadPool.QueueUserWorkItem(o =>
+                    {
+                        string message = "Timesheets saving...";
+                        try
+                        {
+                            SaveWorkLog();
+                            message = "Timesheets saved successfully!";
+                        }
+                        catch
+                        {
+                            message = "Timesheets failed to save.";
+                        }
+                        finally
+                        {
+                            BeginInvoke(() =>
+                            {
+                                ShutdownBlockReasonCreate(Handle, message);
+                                ShutdownBlockReasonDestroy(Handle);
+                            });
+                        }
+                    });
+                }
+
+                return;
+            }
+
+            base.WndProc(ref m);
         }
 
         private void WireUpLists()
