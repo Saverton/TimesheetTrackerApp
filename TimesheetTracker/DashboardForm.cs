@@ -71,7 +71,7 @@ namespace TimesheetTracker
         private void WireUpLists()
         {
             ProjectsComboBox.DataSource = _projects;
-            ProjectsComboBox.DisplayMember = "ProjectName";
+            ProjectsComboBox.DisplayMember = "ProjectDisplay";
         }
 
         private void AddProjectLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
