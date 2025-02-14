@@ -16,7 +16,8 @@ namespace TimesheetTracker
 	public partial class EditWorkLogForm : Form
 	{
 		private readonly IRequestData<WorkLogModel> _callingForm;
-		List<WorkLogModel> workLogs = [];
+		private List<WorkLogModel> workLogs = [];
+        private List<ProjectModel> projects = [];
 
 		public EditWorkLogForm(IRequestData<WorkLogModel> callingForm)
 		{
@@ -24,27 +25,25 @@ namespace TimesheetTracker
 
 			InitializeComponent();
 
-			ProjectComboBox.DisplayMember = nameof(WorkLogModel.ProjectDisplay);
-
-			LoadWorkLogs();
+            LoadProjects();
 
 			DatePicker.Value = DateTime.Now;
 		}
 
 		private void DatePicker_ValueChanged(object sender, EventArgs e)
 		{
-			LoadWorkLogs();
+            LoadWorkLog();
 		}
 
-		private void LoadWorkLogs()
-		{
-			DateOnly date = DateOnly.FromDateTime(DatePicker.Value);
-			workLogs = TimesheetTrackerDataAccess.GetWorkLogsInDateRange(date, date);
+        private void LoadProjects()
+        {
+            projects = TimesheetTrackerDataAccess.GetAllProjects();
 
+			ProjectComboBox.DisplayMember = nameof(ProjectModel.LongDisplay);
 
-			if (workLogs.Count > 0)
+			if (projects.Count > 0)
 			{
-				ProjectComboBox.DataSource = workLogs;
+				ProjectComboBox.DataSource = projects;
 				ProjectComboBox.SelectedIndex = 0;
 				ProjectComboBox.Enabled = true;
 			}
@@ -52,15 +51,19 @@ namespace TimesheetTracker
 			{
 				ProjectComboBox.SelectedItem = null;
 				ProjectComboBox.Enabled = false;
-				WorkLogGroupBox.Enabled = false;
 			}
-		}
+        }
 
 		private void ProjectComboBox_SelectedValueChanged(object sender, EventArgs e)
 		{
-			WorkLogModel? selected = (WorkLogModel?)ProjectComboBox.SelectedItem;
+            LoadWorkLog();
+		}
 
-			if (selected is null)
+        private void LoadWorkLog()
+        {
+            var workLog = GetSelectedWorkLog();
+
+			if (workLog is null)
 			{
 				HoursWorkedTextBox.Text = "";
 				NotesTextBox.Text = "";
@@ -68,21 +71,46 @@ namespace TimesheetTracker
 			}
 			else
 			{
-				HoursWorkedTextBox.Text = TimesheetTrackerLogic.GetTimeSpanFromHoursWorked(selected.HoursWorked).ToString(@"hh\:mm");
-				NotesTextBox.Text = selected.Notes;
+				HoursWorkedTextBox.Text = TimesheetTrackerLogic.GetTimeSpanFromHoursWorked(workLog.HoursWorked).ToString(@"hh\:mm");
+				NotesTextBox.Text = workLog.Notes;
 				WorkLogGroupBox.Enabled = true;
 			}
-		}
+        }
+
+        private WorkLogModel? GetSelectedWorkLog()
+        {
+            ProjectModel? project = (ProjectModel?)ProjectComboBox.SelectedItem;
+
+            WorkLogModel? workLog = null;
+            if (project != null)
+            {
+                var date = DateOnly.FromDateTime(DatePicker.Value);
+                workLog = TimesheetTrackerDataAccess.GetWorkLog(project.Id, date.ToString("yyyy-MM-dd"));
+
+                if (workLog == null)
+                {
+                    workLog = new WorkLogModel()
+                    {
+                        ProjectId = project.Id,
+                        Project = project,
+                        Date = date.ToString("yyyy-MM-dd"),
+                        HoursWorked = 0
+                    };
+                }
+            }
+
+            return workLog;
+        }
 
 		private void SaveBtn_Click(object sender, EventArgs e)
 		{
-			WorkLogModel? selected = (WorkLogModel?)ProjectComboBox.SelectedItem;
+            var workLog = GetSelectedWorkLog();
 
-			if (selected is not null)
+			if (workLog is not null)
 			{
 				if (TimeSpan.TryParse(HoursWorkedTextBox.Text, out TimeSpan hoursWorkedTimeSpan))
 				{
-					selected.HoursWorked = hoursWorkedTimeSpan.TotalHours;
+					workLog.HoursWorked = hoursWorkedTimeSpan.TotalHours;
 				}
 				else
 				{
@@ -95,11 +123,11 @@ namespace TimesheetTracker
 					return;
 				}
 
-				selected.Notes = NotesTextBox.Text;
+				workLog.Notes = NotesTextBox.Text;
 
-				TimesheetTrackerDataAccess.UpsertWorkLog(selected);
+				TimesheetTrackerDataAccess.UpsertWorkLog(workLog);
 
-				_callingForm.ReceiveData(selected);
+				_callingForm.ReceiveData(workLog);
 
 				MessageBox.Show(
 					"The work log was updated successfully.",

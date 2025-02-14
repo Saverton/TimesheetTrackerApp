@@ -37,9 +37,9 @@ namespace TimesheetTrackerLibrary.DataAccess
 			string sql = "SELECT * FROM WorkLogs " +
 				"WHERE ProjectId = @ProjectId AND Date = @Date";
 
-			var workLog = _database.LoadData<WorkLogModel, dynamic>(sql, model).FirstOrDefault();
+			var existing = _database.LoadData<WorkLogModel, dynamic>(sql, model).FirstOrDefault();
 
-			if (workLog is null)
+			if (existing is null)
 			{
 				sql = "INSERT INTO WorkLogs (ProjectId, Date, HoursWorked, Notes) " +
 					"VALUES (@ProjectId, @Date, @HoursWorked, @Notes);";
@@ -49,7 +49,7 @@ namespace TimesheetTrackerLibrary.DataAccess
 				sql = "SELECT * FROM WorkLogs " +
 					"WHERE ProjectId = @ProjectId AND Date = @Date";
 
-				workLog = _database.LoadData<WorkLogModel, dynamic>(sql, model).First();
+				existing = _database.LoadData<WorkLogModel, dynamic>(sql, model).First();
 			}
 			else
 			{
@@ -59,14 +59,14 @@ namespace TimesheetTrackerLibrary.DataAccess
 					"UpdatedAt = @UpdatedAt " +
 					"WHERE Id = @Id";
 
-				workLog.HoursWorked = model.HoursWorked;
-				workLog.Notes = model.Notes;
-				workLog.UpdatedAt = DateTime.UtcNow;
+				existing.HoursWorked = model.HoursWorked;
+				existing.Notes = model.Notes;
+				existing.UpdatedAt = DateTime.UtcNow;
 
-				_database.SaveData(sql, workLog);
+				_database.SaveData(sql, existing);
 			}
 
-			return workLog;
+			return existing;
 		}
 
 		public static WorkLogModel? GetWorkLog(int projectId, string date)
