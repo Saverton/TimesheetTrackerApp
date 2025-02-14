@@ -52,9 +52,9 @@
             HoursWorkedTextBox.Enabled = false;
             HoursWorkedTextBox.Location = new Point(12, 100);
             HoursWorkedTextBox.Name = "HoursWorkedTextBox";
+            HoursWorkedTextBox.PlaceholderText = "00:00:00";
             HoursWorkedTextBox.Size = new Size(310, 42);
             HoursWorkedTextBox.TabIndex = 2;
-            HoursWorkedTextBox.Text = "00:00";
             HoursWorkedTextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // NotesTextBox
@@ -74,6 +74,7 @@
             ProjectDisplayTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ProjectDisplayTextBox.Location = new Point(12, 12);
             ProjectDisplayTextBox.Name = "ProjectDisplayTextBox";
+            ProjectDisplayTextBox.PlaceholderText = "Project Name";
             ProjectDisplayTextBox.Size = new Size(310, 34);
             ProjectDisplayTextBox.TabIndex = 4;
             // 

@@ -41,7 +41,7 @@
             NotesTextBox.Location = new Point(12, 100);
             NotesTextBox.Name = "NotesTextBox";
             NotesTextBox.ScrollBars = RichTextBoxScrollBars.Vertical;
-            NotesTextBox.Size = new Size(310, 270);
+            NotesTextBox.Size = new Size(310, 271);
             NotesTextBox.TabIndex = 4;
             NotesTextBox.Text = "";
             // 
@@ -51,6 +51,7 @@
             ProjectNameTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ProjectNameTextBox.Location = new Point(12, 12);
             ProjectNameTextBox.Name = "ProjectNameTextBox";
+            ProjectNameTextBox.PlaceholderText = "Project Name";
             ProjectNameTextBox.Size = new Size(310, 34);
             ProjectNameTextBox.TabIndex = 5;
             // 
@@ -59,6 +60,7 @@
             ProjectNumberTextBox.Enabled = false;
             ProjectNumberTextBox.Location = new Point(12, 52);
             ProjectNumberTextBox.Name = "ProjectNumberTextBox";
+            ProjectNumberTextBox.PlaceholderText = "00000.000.000";
             ProjectNumberTextBox.Size = new Size(310, 42);
             ProjectNumberTextBox.TabIndex = 6;
             // 

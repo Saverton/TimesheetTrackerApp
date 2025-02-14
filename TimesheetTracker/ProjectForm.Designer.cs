@@ -48,22 +48,24 @@
             ProjectNameLabel.ForeColor = SystemColors.ControlDarkDark;
             ProjectNameLabel.Location = new Point(12, 9);
             ProjectNameLabel.Name = "ProjectNameLabel";
-            ProjectNameLabel.Size = new Size(104, 21);
+            ProjectNameLabel.Size = new Size(130, 28);
             ProjectNameLabel.TabIndex = 0;
             ProjectNameLabel.Text = "Project Name";
             // 
             // ProjectNameTextBox
             // 
-            ProjectNameTextBox.Location = new Point(12, 33);
+            ProjectNameTextBox.Location = new Point(12, 40);
             ProjectNameTextBox.Name = "ProjectNameTextBox";
-            ProjectNameTextBox.Size = new Size(310, 35);
+            ProjectNameTextBox.Size = new Size(310, 42);
             ProjectNameTextBox.TabIndex = 0;
             // 
             // ProjectNumberTextBox
             // 
-            ProjectNumberTextBox.Location = new Point(12, 95);
+            ProjectNumberTextBox.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ProjectNumberTextBox.Location = new Point(12, 116);
             ProjectNumberTextBox.Name = "ProjectNumberTextBox";
-            ProjectNumberTextBox.Size = new Size(176, 35);
+            ProjectNumberTextBox.PlaceholderText = "00000.000";
+            ProjectNumberTextBox.Size = new Size(176, 38);
             ProjectNumberTextBox.TabIndex = 1;
             // 
             // ProjectNumberLabel
@@ -71,17 +73,19 @@
             ProjectNumberLabel.AutoSize = true;
             ProjectNumberLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ProjectNumberLabel.ForeColor = SystemColors.ControlDarkDark;
-            ProjectNumberLabel.Location = new Point(12, 71);
+            ProjectNumberLabel.Location = new Point(12, 85);
             ProjectNumberLabel.Name = "ProjectNumberLabel";
-            ProjectNumberLabel.Size = new Size(120, 21);
+            ProjectNumberLabel.Size = new Size(150, 28);
             ProjectNumberLabel.TabIndex = 2;
             ProjectNumberLabel.Text = "Project Number";
             // 
             // ProjectPhaseTextBox
             // 
-            ProjectPhaseTextBox.Location = new Point(194, 95);
+            ProjectPhaseTextBox.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ProjectPhaseTextBox.Location = new Point(194, 116);
             ProjectPhaseTextBox.Name = "ProjectPhaseTextBox";
-            ProjectPhaseTextBox.Size = new Size(128, 35);
+            ProjectPhaseTextBox.PlaceholderText = "000";
+            ProjectPhaseTextBox.Size = new Size(128, 38);
             ProjectPhaseTextBox.TabIndex = 2;
             // 
             // ProjectPhaseLabel
@@ -89,9 +93,9 @@
             ProjectPhaseLabel.AutoSize = true;
             ProjectPhaseLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ProjectPhaseLabel.ForeColor = SystemColors.ControlDarkDark;
-            ProjectPhaseLabel.Location = new Point(194, 71);
+            ProjectPhaseLabel.Location = new Point(194, 85);
             ProjectPhaseLabel.Name = "ProjectPhaseLabel";
-            ProjectPhaseLabel.Size = new Size(103, 21);
+            ProjectPhaseLabel.Size = new Size(128, 28);
             ProjectPhaseLabel.TabIndex = 4;
             ProjectPhaseLabel.Text = "Project Phase";
             // 
@@ -100,9 +104,9 @@
             NotesLabel.AutoSize = true;
             NotesLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             NotesLabel.ForeColor = SystemColors.ControlDarkDark;
-            NotesLabel.Location = new Point(12, 133);
+            NotesLabel.Location = new Point(12, 157);
             NotesLabel.Name = "NotesLabel";
-            NotesLabel.Size = new Size(51, 21);
+            NotesLabel.Size = new Size(64, 28);
             NotesLabel.TabIndex = 10;
             NotesLabel.Text = "Notes";
             // 
@@ -110,9 +114,9 @@
             // 
             SaveBtn.AutoSize = true;
             SaveBtn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            SaveBtn.Location = new Point(256, 253);
+            SaveBtn.Location = new Point(240, 374);
             SaveBtn.Name = "SaveBtn";
-            SaveBtn.Size = new Size(66, 40);
+            SaveBtn.Size = new Size(82, 47);
             SaveBtn.TabIndex = 4;
             SaveBtn.Text = "Save";
             SaveBtn.UseVisualStyleBackColor = true;
@@ -122,9 +126,9 @@
             // 
             CancelBtn.AutoSize = true;
             CancelBtn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            CancelBtn.Location = new Point(165, 253);
+            CancelBtn.Location = new Point(128, 374);
             CancelBtn.Name = "CancelBtn";
-            CancelBtn.Size = new Size(85, 40);
+            CancelBtn.Size = new Size(106, 47);
             CancelBtn.TabIndex = 5;
             CancelBtn.Text = "Cancel";
             CancelBtn.UseVisualStyleBackColor = true;
@@ -132,19 +136,20 @@
             // 
             // NotesTextBox
             // 
-            NotesTextBox.Location = new Point(16, 157);
+            NotesTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            NotesTextBox.Location = new Point(12, 188);
             NotesTextBox.Name = "NotesTextBox";
             NotesTextBox.ScrollBars = RichTextBoxScrollBars.Vertical;
-            NotesTextBox.Size = new Size(306, 90);
+            NotesTextBox.Size = new Size(310, 180);
             NotesTextBox.TabIndex = 3;
             NotesTextBox.Text = "";
             // 
             // ProjectForm
             // 
-            AutoScaleDimensions = new SizeF(12F, 30F);
+            AutoScaleDimensions = new SizeF(14F, 36F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(334, 305);
+            ClientSize = new Size(334, 433);
             Controls.Add(NotesTextBox);
             Controls.Add(CancelBtn);
             Controls.Add(SaveBtn);

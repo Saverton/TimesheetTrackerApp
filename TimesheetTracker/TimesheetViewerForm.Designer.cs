@@ -43,19 +43,20 @@
             TimesheetDataGrid.AllowUserToAddRows = false;
             TimesheetDataGrid.AllowUserToDeleteRows = false;
             TimesheetDataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            TimesheetDataGrid.Location = new Point(12, 67);
+            TimesheetDataGrid.Location = new Point(12, 81);
             TimesheetDataGrid.Margin = new Padding(2);
             TimesheetDataGrid.Name = "TimesheetDataGrid";
             TimesheetDataGrid.ReadOnly = true;
-            TimesheetDataGrid.Size = new Size(945, 300);
+            TimesheetDataGrid.RowHeadersWidth = 51;
+            TimesheetDataGrid.Size = new Size(945, 328);
             TimesheetDataGrid.TabIndex = 2;
             // 
             // YearComboBox
             // 
             YearComboBox.FormattingEnabled = true;
-            YearComboBox.Location = new Point(12, 33);
+            YearComboBox.Location = new Point(12, 40);
             YearComboBox.Name = "YearComboBox";
-            YearComboBox.Size = new Size(121, 29);
+            YearComboBox.Size = new Size(121, 36);
             YearComboBox.TabIndex = 0;
             YearComboBox.SelectedIndexChanged += YearComboBox_SelectedIndexChanged;
             // 
@@ -66,7 +67,7 @@
             YearLabel.ForeColor = SystemColors.ControlDarkDark;
             YearLabel.Location = new Point(12, 9);
             YearLabel.Name = "YearLabel";
-            YearLabel.Size = new Size(40, 21);
+            YearLabel.Size = new Size(48, 28);
             YearLabel.TabIndex = 2;
             YearLabel.Text = "Year";
             // 
@@ -77,16 +78,16 @@
             WeekLabel.ForeColor = SystemColors.ControlDarkDark;
             WeekLabel.Location = new Point(139, 9);
             WeekLabel.Name = "WeekLabel";
-            WeekLabel.Size = new Size(48, 21);
+            WeekLabel.Size = new Size(60, 28);
             WeekLabel.TabIndex = 4;
             WeekLabel.Text = "Week";
             // 
             // WeekComboBox
             // 
             WeekComboBox.FormattingEnabled = true;
-            WeekComboBox.Location = new Point(139, 33);
+            WeekComboBox.Location = new Point(139, 40);
             WeekComboBox.Name = "WeekComboBox";
-            WeekComboBox.Size = new Size(187, 29);
+            WeekComboBox.Size = new Size(187, 36);
             WeekComboBox.TabIndex = 1;
             WeekComboBox.SelectedValueChanged += WeekComboBox_SelectedValueChanged;
             // 
@@ -94,19 +95,19 @@
             // 
             DateTimeGeneratedLabel.AutoSize = true;
             DateTimeGeneratedLabel.ForeColor = SystemColors.ControlDarkDark;
-            DateTimeGeneratedLabel.Location = new Point(701, 41);
+            DateTimeGeneratedLabel.Location = new Point(635, 48);
             DateTimeGeneratedLabel.Name = "DateTimeGeneratedLabel";
-            DateTimeGeneratedLabel.Size = new Size(256, 21);
+            DateTimeGeneratedLabel.Size = new Size(321, 28);
             DateTimeGeneratedLabel.TabIndex = 5;
             DateTimeGeneratedLabel.Text = "generated at 00/00/0000 00:00 AM";
             DateTimeGeneratedLabel.TextAlign = ContentAlignment.TopRight;
             // 
             // TimesheetViewerForm
             // 
-            AutoScaleDimensions = new SizeF(9F, 21F);
+            AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(968, 378);
+            ClientSize = new Size(968, 420);
             Controls.Add(DateTimeGeneratedLabel);
             Controls.Add(WeekLabel);
             Controls.Add(WeekComboBox);

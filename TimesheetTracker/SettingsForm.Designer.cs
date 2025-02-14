@@ -39,16 +39,16 @@
             TitleLabel.AutoSize = true;
             TitleLabel.Location = new Point(12, 9);
             TitleLabel.Name = "TitleLabel";
-            TitleLabel.Size = new Size(259, 30);
+            TitleLabel.Size = new Size(330, 37);
             TitleLabel.TabIndex = 0;
             TitleLabel.Text = "Timesheet Tracker Settings";
             // 
             // OpenOnStartupCheckBox
             // 
             OpenOnStartupCheckBox.AutoSize = true;
-            OpenOnStartupCheckBox.Location = new Point(12, 42);
+            OpenOnStartupCheckBox.Location = new Point(12, 49);
             OpenOnStartupCheckBox.Name = "OpenOnStartupCheckBox";
-            OpenOnStartupCheckBox.Size = new Size(189, 34);
+            OpenOnStartupCheckBox.Size = new Size(238, 41);
             OpenOnStartupCheckBox.TabIndex = 0;
             OpenOnStartupCheckBox.Text = "Open On Startup";
             OpenOnStartupCheckBox.UseVisualStyleBackColor = true;
@@ -56,10 +56,10 @@
             // 
             // SettingsForm
             // 
-            AutoScaleDimensions = new SizeF(12F, 30F);
+            AutoScaleDimensions = new SizeF(14F, 36F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(334, 311);
+            ClientSize = new Size(351, 311);
             Controls.Add(OpenOnStartupCheckBox);
             Controls.Add(TitleLabel);
             Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);

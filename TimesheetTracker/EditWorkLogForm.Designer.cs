@@ -49,28 +49,29 @@
             DayLabel.ForeColor = SystemColors.ControlDarkDark;
             DayLabel.Location = new Point(12, 9);
             DayLabel.Name = "DayLabel";
-            DayLabel.Size = new Size(37, 21);
+            DayLabel.Size = new Size(53, 28);
             DayLabel.TabIndex = 3;
-            DayLabel.Text = "Day";
+            DayLabel.Text = "Date";
             // 
             // ProjectLabel
             // 
             ProjectLabel.AutoSize = true;
             ProjectLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ProjectLabel.ForeColor = SystemColors.ControlDarkDark;
-            ProjectLabel.Location = new Point(12, 73);
+            ProjectLabel.Location = new Point(12, 85);
             ProjectLabel.Name = "ProjectLabel";
-            ProjectLabel.Size = new Size(58, 21);
+            ProjectLabel.Size = new Size(73, 28);
             ProjectLabel.TabIndex = 6;
             ProjectLabel.Text = "Project";
             // 
             // ProjectComboBox
             // 
             ProjectComboBox.Enabled = false;
+            ProjectComboBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ProjectComboBox.FormattingEnabled = true;
-            ProjectComboBox.Location = new Point(12, 97);
+            ProjectComboBox.Location = new Point(12, 116);
             ProjectComboBox.Name = "ProjectComboBox";
-            ProjectComboBox.Size = new Size(310, 38);
+            ProjectComboBox.Size = new Size(310, 36);
             ProjectComboBox.TabIndex = 1;
             ProjectComboBox.SelectedValueChanged += ProjectComboBox_SelectedValueChanged;
             // 
@@ -82,9 +83,9 @@
             WorkLogGroupBox.Controls.Add(NotesLabel);
             WorkLogGroupBox.Controls.Add(HoursWorkedLabel);
             WorkLogGroupBox.Enabled = false;
-            WorkLogGroupBox.Location = new Point(12, 141);
+            WorkLogGroupBox.Location = new Point(12, 158);
             WorkLogGroupBox.Name = "WorkLogGroupBox";
-            WorkLogGroupBox.Size = new Size(310, 316);
+            WorkLogGroupBox.Size = new Size(310, 347);
             WorkLogGroupBox.TabIndex = 9;
             WorkLogGroupBox.TabStop = false;
             WorkLogGroupBox.Text = "Work Log";
@@ -92,7 +93,7 @@
             // NotesTextBox
             // 
             NotesTextBox.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            NotesTextBox.Location = new Point(6, 123);
+            NotesTextBox.Location = new Point(6, 145);
             NotesTextBox.Name = "NotesTextBox";
             NotesTextBox.ScrollBars = RichTextBoxScrollBars.Vertical;
             NotesTextBox.Size = new Size(298, 141);
@@ -101,11 +102,11 @@
             // 
             // HoursWorkedTextBox
             // 
-            HoursWorkedTextBox.Location = new Point(6, 61);
+            HoursWorkedTextBox.Location = new Point(6, 69);
             HoursWorkedTextBox.MaxLength = 5;
             HoursWorkedTextBox.Name = "HoursWorkedTextBox";
             HoursWorkedTextBox.PlaceholderText = "hh:mm";
-            HoursWorkedTextBox.Size = new Size(298, 35);
+            HoursWorkedTextBox.Size = new Size(298, 42);
             HoursWorkedTextBox.TabIndex = 2;
             HoursWorkedTextBox.KeyPress += HoursWorkedTextBox_KeyPress;
             // 
@@ -113,9 +114,9 @@
             // 
             SaveBtn.AutoSize = true;
             SaveBtn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            SaveBtn.Location = new Point(238, 270);
+            SaveBtn.Location = new Point(222, 292);
             SaveBtn.Name = "SaveBtn";
-            SaveBtn.Size = new Size(66, 40);
+            SaveBtn.Size = new Size(82, 47);
             SaveBtn.TabIndex = 4;
             SaveBtn.Text = "Save";
             SaveBtn.UseVisualStyleBackColor = true;
@@ -126,9 +127,9 @@
             NotesLabel.AutoSize = true;
             NotesLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             NotesLabel.ForeColor = SystemColors.ControlDarkDark;
-            NotesLabel.Location = new Point(6, 99);
+            NotesLabel.Location = new Point(6, 114);
             NotesLabel.Name = "NotesLabel";
-            NotesLabel.Size = new Size(51, 21);
+            NotesLabel.Size = new Size(64, 28);
             NotesLabel.TabIndex = 10;
             NotesLabel.Text = "Notes";
             // 
@@ -137,9 +138,9 @@
             HoursWorkedLabel.AutoSize = true;
             HoursWorkedLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             HoursWorkedLabel.ForeColor = SystemColors.ControlDarkDark;
-            HoursWorkedLabel.Location = new Point(6, 37);
+            HoursWorkedLabel.Location = new Point(6, 38);
             HoursWorkedLabel.Name = "HoursWorkedLabel";
-            HoursWorkedLabel.Size = new Size(110, 21);
+            HoursWorkedLabel.Size = new Size(138, 28);
             HoursWorkedLabel.TabIndex = 4;
             HoursWorkedLabel.Text = "Hours Worked";
             // 
@@ -148,19 +149,19 @@
             DatePicker.Checked = false;
             DatePicker.CustomFormat = "ddd, MMM dd, yyyy";
             DatePicker.Format = DateTimePickerFormat.Custom;
-            DatePicker.Location = new Point(12, 33);
+            DatePicker.Location = new Point(12, 40);
             DatePicker.MinDate = new DateTime(2024, 1, 1, 0, 0, 0, 0);
             DatePicker.Name = "DatePicker";
-            DatePicker.Size = new Size(310, 35);
+            DatePicker.Size = new Size(310, 42);
             DatePicker.TabIndex = 0;
             DatePicker.ValueChanged += DatePicker_ValueChanged;
             // 
             // EditWorkLogForm
             // 
-            AutoScaleDimensions = new SizeF(12F, 30F);
+            AutoScaleDimensions = new SizeF(14F, 36F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(334, 469);
+            ClientSize = new Size(334, 517);
             Controls.Add(DatePicker);
             Controls.Add(WorkLogGroupBox);
             Controls.Add(ProjectLabel);
