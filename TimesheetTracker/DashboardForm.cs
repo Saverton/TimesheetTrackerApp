@@ -13,7 +13,6 @@ namespace TimesheetTracker
         private bool _isTimerRunning = false;
         private bool _isWorkSaved = true;
         private ProjectModel? _currentProject;
-        private bool _isForceClose = false;
 
         public DashboardForm()
         {
@@ -230,7 +229,6 @@ namespace TimesheetTracker
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _isForceClose = true;
             Close();
         }
 
@@ -242,43 +240,26 @@ namespace TimesheetTracker
 
         private void DashboardForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (e.CloseReason == CloseReason.UserClosing && _isForceClose == false)
+            if (_isWorkSaved == false)
             {
-                e.Cancel = true;
-                WindowState = FormWindowState.Minimized;
-                return;
+                var result = MessageBox.Show("Would you like to save before exiting? Cancel if you don't want to exit.",
+                    "Exiting Timesheet Tracker",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button1);
+
+                if (result == DialogResult.Yes)
+                {
+                    SaveWorkLog();
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                    return;
+                }
             }
 
-            if (_isForceClose == true && _isWorkSaved == false)
-            {
-                SetTimerRunning(false);
-                SaveWorkLog();
-            }
-        }
-
-        private void DashboardForm_Resize(object sender, EventArgs e)
-        {
-            if (WindowState == FormWindowState.Minimized)
-            {
-                Hide();
-                TimesheetTrackerMinimizeNotifyIcon.Visible = true;
-                TimesheetTrackerMinimizeNotifyIcon.ShowBalloonTip(3000,
-                     "Minimized Timesheet Tracker",
-                      "The Timesheet Tracker app will continue to run in the background.",
-                      ToolTipIcon.Info);
-            }
-        }
-
-        private void TimesheetTrackerMinimizeNotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            Show();
-            WindowState = FormWindowState.Normal;
-        }
-
-        private void TimesheetTrackerMinimizeNotifyIcon_BalloonTipClicked(object sender, EventArgs e)
-        {
-            Show();
-            WindowState = FormWindowState.Normal;
+            SetTimerRunning(false);
         }
 
         private void DashboardForm_KeyDown(object sender, KeyEventArgs e)

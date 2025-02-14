@@ -45,7 +45,6 @@
             viewToolStripMenuItem = new ToolStripMenuItem();
             timesheetsToolStripMenuItem = new ToolStripMenuItem();
             Timer = new System.Windows.Forms.Timer(components);
-            TimesheetTrackerMinimizeNotifyIcon = new NotifyIcon(components);
             NotesTextBox = new RichTextBox();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -145,7 +144,7 @@
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(224, 26);
+            exitToolStripMenuItem.Size = new Size(116, 26);
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
@@ -181,17 +180,6 @@
             // 
             Timer.Interval = 1000;
             Timer.Tick += Timer_Tick;
-            // 
-            // TimesheetTrackerMinimizeNotifyIcon
-            // 
-            TimesheetTrackerMinimizeNotifyIcon.BalloonTipIcon = ToolTipIcon.Info;
-            TimesheetTrackerMinimizeNotifyIcon.BalloonTipText = "The Timesheet Tracker app is running in the background.\r\n";
-            TimesheetTrackerMinimizeNotifyIcon.BalloonTipTitle = "Application Minimized";
-            TimesheetTrackerMinimizeNotifyIcon.Icon = (Icon)resources.GetObject("TimesheetTrackerMinimizeNotifyIcon.Icon");
-            TimesheetTrackerMinimizeNotifyIcon.Text = "Timesheet Tracker";
-            TimesheetTrackerMinimizeNotifyIcon.Visible = true;
-            TimesheetTrackerMinimizeNotifyIcon.BalloonTipClicked += TimesheetTrackerMinimizeNotifyIcon_BalloonTipClicked;
-            TimesheetTrackerMinimizeNotifyIcon.MouseDoubleClick += TimesheetTrackerMinimizeNotifyIcon_MouseDoubleClick;
             // 
             // NotesTextBox
             // 
@@ -229,7 +217,6 @@
             Text = "Timesheet Tracker";
             FormClosing += DashboardForm_FormClosing;
             KeyDown += DashboardForm_KeyDown;
-            Resize += DashboardForm_Resize;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);
@@ -253,7 +240,6 @@
 		private ToolStripMenuItem viewToolStripMenuItem;
 		private ToolStripMenuItem timesheetsToolStripMenuItem;
 		private System.Windows.Forms.Timer Timer;
-		private NotifyIcon TimesheetTrackerMinimizeNotifyIcon;
         private RichTextBox NotesTextBox;
     }
 }
