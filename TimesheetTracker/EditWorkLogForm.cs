@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TimesheetTrackerLibrary;
 using TimesheetTrackerLibrary.DataAccess;
+using TimesheetTrackerLibrary.DataAccess.Dapper;
 using TimesheetTrackerLibrary.Models;
 
 namespace TimesheetTracker
@@ -16,6 +17,7 @@ namespace TimesheetTracker
 	public partial class EditWorkLogForm : Form
 	{
 		private readonly IRequestData<WorkLogModel> _callingForm;
+        private readonly ITimesheetDataAccess _dataAccess = new DapperTimesheetDataAccess();
 		private List<WorkLogModel> workLogs = [];
         private List<ProjectModel> projects = [];
 
@@ -37,7 +39,7 @@ namespace TimesheetTracker
 
         private void LoadProjects()
         {
-            projects = TimesheetTrackerDataAccess.GetAllProjects();
+            projects = _dataAccess.GetAllProjects();
 
 			ProjectComboBox.DisplayMember = nameof(ProjectModel.LongDisplay);
 
@@ -85,7 +87,7 @@ namespace TimesheetTracker
             if (project != null)
             {
                 var date = DateOnly.FromDateTime(DatePicker.Value);
-                workLog = TimesheetTrackerDataAccess.GetWorkLog(project.Id, date.ToString("yyyy-MM-dd"));
+                workLog = _dataAccess.GetWorkLog(project.Id, date.ToString("yyyy-MM-dd"));
 
                 if (workLog == null)
                 {
@@ -125,7 +127,7 @@ namespace TimesheetTracker
 
 				workLog.Notes = NotesTextBox.Text;
 
-				TimesheetTrackerDataAccess.UpsertWorkLog(workLog);
+				_dataAccess.UpsertWorkLog(workLog);
 
 				_callingForm.ReceiveData(workLog);
 

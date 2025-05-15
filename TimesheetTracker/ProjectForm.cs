@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TimesheetTrackerLibrary.DataAccess;
+using TimesheetTrackerLibrary.DataAccess.Dapper;
 using TimesheetTrackerLibrary.Models;
 
 namespace TimesheetTracker
@@ -16,6 +17,7 @@ namespace TimesheetTracker
 	{
 		private readonly IRequestData<ProjectModel> _callingForm;
 		private int _projectId;
+        private readonly ITimesheetDataAccess _dataAccess = new DapperTimesheetDataAccess();
 
 		public ProjectForm(IRequestData<ProjectModel> callingForm, ProjectModel? project = null)
 		{
@@ -49,12 +51,12 @@ namespace TimesheetTracker
 
 			if (_projectId == 0)
 			{
-				project = TimesheetTrackerDataAccess.CreateProject(project);
+				project = _dataAccess.CreateProject(project);
 			}
 			else
 			{
 				project.Id = _projectId;
-				TimesheetTrackerDataAccess.UpdateProject(project);
+				_dataAccess.UpdateProject(project);
 			}
 
 			_callingForm.ReceiveData(project);

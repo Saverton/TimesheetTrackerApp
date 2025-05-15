@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TimesheetTrackerLibrary;
 using TimesheetTrackerLibrary.DataAccess;
+using TimesheetTrackerLibrary.DataAccess.Dapper;
 using TimesheetTrackerLibrary.Models;
 
 namespace TimesheetTracker
 {
     public partial class TimesheetViewerForm : Form
     {
+        private readonly ITimesheetDataAccess _dataAccess = new DapperTimesheetDataAccess();
         private readonly List<int> years = [];
         private List<WeekModel> weeks = [];
         private List<WorkLogModel> workLogs = [];
@@ -109,7 +111,7 @@ namespace TimesheetTracker
                 return;
             }
 
-            workLogs = TimesheetTrackerDataAccess.GetWorkLogsInDateRange(week.StartDate, week.EndDate);
+            workLogs = _dataAccess.GetWorkLogsInDateRange(week.StartDate, week.EndDate);
 
             timesheetTable.Rows.Clear();
             timesheetTable.Columns.Clear();

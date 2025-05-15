@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TimesheetTrackerLibrary.DataAccess;
+using TimesheetTrackerLibrary.DataAccess.Dapper;
 using TimesheetTrackerLibrary.Models;
 using TimesheetTrackerLibrary.Validation;
 
@@ -16,12 +17,15 @@ namespace TimesheetTracker
 {
     public partial class ProjectManagerForm : Form
     {
-        private readonly BindingList<ProjectModel> _projects = [.. TimesheetTrackerDataAccess.GetAllProjects()];
+        private readonly ITimesheetDataAccess _dataAccess = new DapperTimesheetDataAccess();
+        private BindingList<ProjectModel> _projects;
         private ProjectModel? _selectedProject;
 
         public ProjectManagerForm()
         {
             InitializeComponent();
+
+            _projects = [.. _dataAccess.GetAllProjects()];
 
             WireUpLists();
 
@@ -106,11 +110,11 @@ namespace TimesheetTracker
             // save to database
             if (edited.Id == 0)
             {
-                edited = TimesheetTrackerDataAccess.CreateProject(edited);
+                edited = _dataAccess.CreateProject(edited);
             }
             else
             {
-                TimesheetTrackerDataAccess.UpdateProject(edited);
+                _dataAccess.UpdateProject(edited);
             }
 
             _selectedProject.Id = edited.Id;

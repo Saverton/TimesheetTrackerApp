@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using TimesheetTrackerLibrary;
 using TimesheetTrackerLibrary.DataAccess;
+using TimesheetTrackerLibrary.DataAccess.Dapper;
 using TimesheetTrackerLibrary.Models;
 
 namespace TimesheetTracker
@@ -16,7 +17,9 @@ namespace TimesheetTracker
         [DllImport("user32.dll", SetLastError = true)]
         static extern bool ShutdownBlockReasonDestroy(IntPtr hWnd);
 
-        private readonly BindingList<ProjectModel> _projects = new(TimesheetTrackerDataAccess.GetAllProjects());
+        private ITimesheetDataAccess _dataAccess = new DapperTimesheetDataAccess();
+
+        private BindingList<ProjectModel> _projects;
         private TimeSpan _timeSpan = TimeSpan.Zero;
         private DateOnly _dateToSave = DateOnly.FromDateTime(DateTime.Now);
         private bool _isTimerRunning = false;
@@ -26,6 +29,8 @@ namespace TimesheetTracker
         public DashboardForm()
         {
             InitializeComponent();
+
+            _projects = new(_dataAccess.GetAllProjects());
 
             WireUpLists();
 
@@ -163,7 +168,7 @@ namespace TimesheetTracker
 
                 if (_currentProject is not null)
                 {
-                    var workLog = TimesheetTrackerDataAccess.GetWorkLog(_currentProject.Id, DateTime.Now.ToString("yyyy-MM-dd"));
+                    var workLog = _dataAccess.GetWorkLog(_currentProject.Id, DateTime.Now.ToString("yyyy-MM-dd"));
 
                     if (workLog is not null)
                     {
@@ -218,7 +223,7 @@ namespace TimesheetTracker
                 Date = _dateToSave.ToString("yyyy-MM-dd"),
             };
 
-            TimesheetTrackerDataAccess.UpsertWorkLog(workLog);
+            _dataAccess.UpsertWorkLog(workLog);
 
             _isWorkSaved = true;
             SaveBtn.Enabled = false;
