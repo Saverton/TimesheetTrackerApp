@@ -11,22 +11,23 @@ namespace TimesheetTrackerLibrary.Models
 		public int Id { get; set; }
 		public string ProjectName { get; set; } = string.Empty;
 		public string ProjectNumber { get; set; } = string.Empty;
-		public string ProjectPhase { get; set; } = string.Empty;
+		public string? ProjectPhase { get; set; }
 		public string? Notes { get; set; }
 		public DateTime CreatedAt { get; set; }
 		public DateTime UpdatedAt { get; set; }
+        public bool IsActive { get; set; }
 
-		public string ShortDisplay
-		{
-			get => $"{ProjectNumber}.{ProjectPhase}";
-		}
+        public string ShortDisplay => ProjectNumberPhase;
 
-		public string LongDisplay
-		{
-			get => $"{ProjectName} ({ShortDisplay})";
-		}
+        public string LongDisplay => $"{ProjectName} ({ProjectNumberPhase})";
 
-        public string ProjectNumberPhase => $"{ProjectNumber}.{ProjectPhase}";
+        private string ActiveDisplay => IsActive ? "\u2713" : "_";
+
+        public string FullDisplay => $"{ActiveDisplay} {ProjectName} ({ProjectNumberPhase})";
+
+        public string ProjectNumberPhase => ProjectPhase != null 
+            ? $"{ProjectNumber}.{ProjectPhase}"
+            : ProjectNumber;
 
 		public override string ToString()
 		{

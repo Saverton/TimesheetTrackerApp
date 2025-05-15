@@ -19,8 +19,13 @@ namespace TimesheetTrackerLibrary.DataAccess
             string baseDir = Path.GetDirectoryName(exeFullPath)!;
             string dbTemplatePath = Path.Combine(baseDir, "TimesheetTracker.db");
 
+            // TODO database location config
             string userDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+#if DEBUG
+            string dbDir = Path.Combine(userDir, "AppData\\Local\\TimesheetTracker\\Debug");
+#else
             string dbDir = Path.Combine(userDir, "AppData\\Local\\TimesheetTracker");
+#endif
             string dbPath = Path.Combine(dbDir, "TimesheetTracker.db");
 
             if (!File.Exists(dbPath))

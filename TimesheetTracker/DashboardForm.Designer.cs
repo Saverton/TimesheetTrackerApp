@@ -47,6 +47,7 @@
             timesheetsToolStripMenuItem = new ToolStripMenuItem();
             Timer = new System.Windows.Forms.Timer(components);
             NotesTextBox = new RichTextBox();
+            projectsToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -159,7 +160,7 @@
             // 
             // editToolStripMenuItem
             // 
-            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { workLogsToolStripMenuItem });
+            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { workLogsToolStripMenuItem, projectsToolStripMenuItem });
             editToolStripMenuItem.Name = "editToolStripMenuItem";
             editToolStripMenuItem.Size = new Size(49, 24);
             editToolStripMenuItem.Text = "Edit";
@@ -167,7 +168,7 @@
             // workLogsToolStripMenuItem
             // 
             workLogsToolStripMenuItem.Name = "workLogsToolStripMenuItem";
-            workLogsToolStripMenuItem.Size = new Size(161, 26);
+            workLogsToolStripMenuItem.Size = new Size(224, 26);
             workLogsToolStripMenuItem.Text = "Work Logs";
             workLogsToolStripMenuItem.Click += workLogsToolStripMenuItem_Click;
             // 
@@ -200,6 +201,13 @@
             NotesTextBox.TabIndex = 5;
             NotesTextBox.Text = "";
             NotesTextBox.TextChanged += NotesTextBox_TextChanged;
+            // 
+            // projectsToolStripMenuItem
+            // 
+            projectsToolStripMenuItem.Name = "projectsToolStripMenuItem";
+            projectsToolStripMenuItem.Size = new Size(224, 26);
+            projectsToolStripMenuItem.Text = "Projects";
+            projectsToolStripMenuItem.Click += projectsToolStripMenuItem_Click;
             // 
             // DashboardForm
             // 
@@ -251,5 +259,6 @@
 		private System.Windows.Forms.Timer Timer;
         private RichTextBox NotesTextBox;
         private ToolStripMenuItem settingsToolStripMenuItem;
+        private ToolStripMenuItem projectsToolStripMenuItem;
     }
 }

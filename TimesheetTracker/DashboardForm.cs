@@ -6,7 +6,7 @@ using TimesheetTrackerLibrary.Models;
 
 namespace TimesheetTracker
 {
-	public partial class DashboardForm : Form, IRequestData<ProjectModel>, IRequestData<WorkLogModel>
+    public partial class DashboardForm : Form, IRequestData<ProjectModel>, IRequestData<WorkLogModel>
     {
         public const int WM_QUERYENDSESSION = 0x0011;
         public const int WM_ENDSESSION = 0x0016;
@@ -71,7 +71,7 @@ namespace TimesheetTracker
         private void WireUpLists()
         {
             ProjectsComboBox.DataSource = _projects;
-            ProjectsComboBox.DisplayMember = "ProjectDisplay";
+            ProjectsComboBox.DisplayMember = nameof(ProjectModel.LongDisplay);
         }
 
         private void AddProjectLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -293,15 +293,21 @@ namespace TimesheetTracker
             }
         }
 
-		public void ReceiveData(WorkLogModel data)
-		{
+        public void ReceiveData(WorkLogModel data)
+        {
             if (data.ProjectId == _currentProject?.Id && DateOnly.Parse(data.Date) == DateOnly.FromDateTime(DateTime.Now))
             {
                 NotesTextBox.Text = data.Notes;
-				_timeSpan = TimesheetTrackerLogic.GetTimeSpanFromHoursWorked(data.HoursWorked);
-				TimerLabel.Text = _timeSpan.ToString(@"hh\:mm\:ss");
-				_isWorkSaved = true;
+                _timeSpan = TimesheetTrackerLogic.GetTimeSpanFromHoursWorked(data.HoursWorked);
+                TimerLabel.Text = _timeSpan.ToString(@"hh\:mm\:ss");
+                _isWorkSaved = true;
             }
-		}
-	}
+        }
+
+        private void projectsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new ProjectManagerForm();
+            form.ShowDialog();
+        }
+    }
 }
