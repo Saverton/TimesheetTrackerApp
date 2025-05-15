@@ -15,12 +15,17 @@ namespace TimesheetTracker
 {
 	public partial class ProjectForm : Form
 	{
+        private readonly ITimesheetDataAccess _dataAccess;
 		private readonly IRequestData<ProjectModel> _callingForm;
 		private int _projectId;
-        private readonly ITimesheetDataAccess _dataAccess = new DapperTimesheetDataAccess();
 
-		public ProjectForm(IRequestData<ProjectModel> callingForm, ProjectModel? project = null)
+		public ProjectForm(
+            ITimesheetDataAccess dataAccess, 
+            IRequestData<ProjectModel> callingForm, 
+            ProjectModel? project = null)
 		{
+            _dataAccess = dataAccess;
+
 			InitializeComponent();
 
 			_callingForm = callingForm;

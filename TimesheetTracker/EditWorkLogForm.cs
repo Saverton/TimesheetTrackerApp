@@ -17,13 +17,14 @@ namespace TimesheetTracker
 	public partial class EditWorkLogForm : Form
 	{
 		private readonly IRequestData<WorkLogModel> _callingForm;
-        private readonly ITimesheetDataAccess _dataAccess = new DapperTimesheetDataAccess();
+        private readonly ITimesheetDataAccess _dataAccess;
 		private List<WorkLogModel> workLogs = [];
         private List<ProjectModel> projects = [];
 
-		public EditWorkLogForm(IRequestData<WorkLogModel> callingForm)
+		public EditWorkLogForm(IRequestData<WorkLogModel> callingForm, ITimesheetDataAccess dataAccess)
 		{
 			_callingForm = callingForm;
+            _dataAccess = dataAccess;
 
 			InitializeComponent();
 

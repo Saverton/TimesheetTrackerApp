@@ -16,15 +16,17 @@ namespace TimesheetTracker
 {
     public partial class TimesheetViewerForm : Form
     {
-        private readonly ITimesheetDataAccess _dataAccess = new DapperTimesheetDataAccess();
+        private readonly ITimesheetDataAccess _dataAccess;
         private readonly List<int> years = [];
         private List<WeekModel> weeks = [];
         private List<WorkLogModel> workLogs = [];
         private DataTable timesheetTable = new();
         private BindingSource timesheetBindingSource = new();
 
-        public TimesheetViewerForm()
+        public TimesheetViewerForm(ITimesheetDataAccess dataAccess)
         {
+            _dataAccess = dataAccess;
+
             InitializeComponent();
 
             DateTimeGeneratedLabel.Text = "generated at " + DateTime.Now.ToString("MM/dd/yyyy hh:mm tt");

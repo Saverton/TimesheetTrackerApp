@@ -2,9 +2,9 @@
 
 namespace TimesheetTrackerLibrary.DataAccess.Dapper
 {
-    public class DapperTimesheetDataAccess : ITimesheetDataAccess
+    public class DapperTimesheetDataAccess(IDataAccess database) : ITimesheetDataAccess
     {
-        private IDataAccess _database = new SQLiteDataAccess();
+        private IDataAccess _database = database;
 
         public List<WorkLogModel> GetWorkLogsInDateRange(DateOnly startDate, DateOnly endDate)
         {

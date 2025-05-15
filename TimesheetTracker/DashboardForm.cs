@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using TimesheetTrackerLibrary;
@@ -17,7 +18,7 @@ namespace TimesheetTracker
         [DllImport("user32.dll", SetLastError = true)]
         static extern bool ShutdownBlockReasonDestroy(IntPtr hWnd);
 
-        private ITimesheetDataAccess _dataAccess = new DapperTimesheetDataAccess();
+        private readonly ITimesheetDataAccess _dataAccess;
 
         private BindingList<ProjectModel> _projects;
         private TimeSpan _timeSpan = TimeSpan.Zero;
@@ -26,8 +27,10 @@ namespace TimesheetTracker
         private bool _isWorkSaved = true;
         private ProjectModel? _currentProject;
 
-        public DashboardForm()
+        public DashboardForm(ITimesheetDataAccess dataAccess)
         {
+            _dataAccess = dataAccess;
+
             InitializeComponent();
 
             _projects = new(_dataAccess.GetAllProjects());
@@ -81,7 +84,7 @@ namespace TimesheetTracker
 
         private void AddProjectLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var form = new ProjectForm(this);
+            var form = new ProjectForm(_dataAccess, this);
             form.ShowDialog();
         }
 
@@ -108,7 +111,7 @@ namespace TimesheetTracker
 
             if (selectedProject is not null)
             {
-                var form = new ProjectForm(this, selectedProject);
+                var form = new ProjectForm(_dataAccess, this, selectedProject);
                 form.ShowDialog();
             }
         }
@@ -242,7 +245,7 @@ namespace TimesheetTracker
 
         private void workLogsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new EditWorkLogForm(this);
+            var form = new EditWorkLogForm(this, _dataAccess);
             form.ShowDialog();
         }
 
@@ -251,7 +254,7 @@ namespace TimesheetTracker
             // ensures data displayed is the most up-to-date
             SaveWorkLog();
 
-            var form = new TimesheetViewerForm();
+            var form = Program.ServiceProvider.GetRequiredService<TimesheetViewerForm>();
             form.Show();
         }
 
@@ -262,7 +265,7 @@ namespace TimesheetTracker
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new SettingsForm();
+            var form = Program.ServiceProvider.GetRequiredService<SettingsForm>();
             form.ShowDialog();
         }
 
@@ -311,7 +314,7 @@ namespace TimesheetTracker
 
         private void projectsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new ProjectManagerForm();
+            using var form = Program.ServiceProvider.GetRequiredService<ProjectManagerForm>();
             form.ShowDialog();
         }
     }
