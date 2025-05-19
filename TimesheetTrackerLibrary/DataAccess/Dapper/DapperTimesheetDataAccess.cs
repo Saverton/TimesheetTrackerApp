@@ -2,7 +2,11 @@
 
 namespace TimesheetTrackerLibrary.DataAccess.Dapper
 {
-    public class DapperTimesheetDataAccess(IDataAccess database) : ITimesheetDataAccess
+    /// <summary>
+    /// </summary>
+    /// <param name="database"></param>
+    [Obsolete]
+    public class DapperTimesheetDataAccess(IDataAccess database) // : ITimesheetDataAccess
     {
         private IDataAccess _database = database;
 
