@@ -35,15 +35,12 @@ namespace TimesheetTrackerLibrary.DataAccess.EFCore
         public WorkLogModel? GetWorkLog(int projectId, DateOnly date) =>
             _ctx.WorkLogs.FirstOrDefault(log => log.ProjectId == projectId && log.Date == date);
 
-        public List<WorkLogModel> GetWorkLogsInDateRange(DateOnly startDate, DateOnly endDate)
-        {
-            var (startDateTime, endDateTime) = (new DateTime(startDate, TimeOnly.MinValue), new DateTime(endDate, TimeOnly.MaxValue));
-
-            return _ctx.WorkLogs
+        public List<WorkLogModel> GetWorkLogsInDateRange(DateOnly startDate, DateOnly endDate) =>
+            _ctx.WorkLogs
+                .AsNoTracking()
                 .Include(log => log.Project)
-                .Where(log => log.CreatedAt >= startDateTime && log.CreatedAt <= endDateTime)
+                .Where(log => log.Date >= startDate && log.Date <= endDate)
                 .ToList();
-        }
 
         public void UpdateProject(ProjectModel model)
         {
