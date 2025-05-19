@@ -71,12 +71,24 @@ namespace TimesheetTracker
 				HoursWorkedTextBox.Text = "";
 				NotesTextBox.Text = "";
 				WorkLogGroupBox.Enabled = false;
+
+                CreatedUpdatedLabel.Visible = false;
 			}
 			else
 			{
 				HoursWorkedTextBox.Text = TimesheetTrackerLogic.GetTimeSpanFromHoursWorked(workLog.HoursWorked).ToString(@"hh\:mm");
 				NotesTextBox.Text = workLog.Notes;
 				WorkLogGroupBox.Enabled = true;
+
+                CreatedUpdatedLabel.Visible = true;
+                if (workLog.Id == 0)
+                {
+                    CreatedUpdatedLabel.Text = "Not saved yet.";
+                }
+                else
+                {
+                    CreatedUpdatedLabel.Text = $"Saved at {workLog.UpdatedAt:hh:mm:ss tt MM/dd/yy}";
+                }
 			}
         }
 
@@ -94,7 +106,7 @@ namespace TimesheetTracker
                         ProjectId = project.Id,
                         Project = project,
                         Date = date,
-                        HoursWorked = 0
+                        HoursWorked = 0,
                     };
             }
 
@@ -128,11 +140,7 @@ namespace TimesheetTracker
 
 				_callingForm.ReceiveData(workLog);
 
-				MessageBox.Show(
-					"The work log was updated successfully.",
-					"Success!",
-					MessageBoxButtons.OK,
-					MessageBoxIcon.Information);
+                CreatedUpdatedLabel.Text = $"Saved at {workLog.UpdatedAt:hh:mm:ss tt MM/dd/yy}";
 			}
 		}
 

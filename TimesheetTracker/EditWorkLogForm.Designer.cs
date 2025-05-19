@@ -33,6 +33,7 @@
             ProjectLabel = new Label();
             ProjectComboBox = new ComboBox();
             WorkLogGroupBox = new GroupBox();
+            CreatedUpdatedLabel = new Label();
             NotesTextBox = new RichTextBox();
             HoursWorkedTextBox = new TextBox();
             SaveBtn = new Button();
@@ -71,12 +72,13 @@
             ProjectComboBox.FormattingEnabled = true;
             ProjectComboBox.Location = new Point(12, 116);
             ProjectComboBox.Name = "ProjectComboBox";
-            ProjectComboBox.Size = new Size(310, 36);
+            ProjectComboBox.Size = new Size(408, 36);
             ProjectComboBox.TabIndex = 1;
             ProjectComboBox.SelectedValueChanged += ProjectComboBox_SelectedValueChanged;
             // 
             // WorkLogGroupBox
             // 
+            WorkLogGroupBox.Controls.Add(CreatedUpdatedLabel);
             WorkLogGroupBox.Controls.Add(NotesTextBox);
             WorkLogGroupBox.Controls.Add(HoursWorkedTextBox);
             WorkLogGroupBox.Controls.Add(SaveBtn);
@@ -85,10 +87,21 @@
             WorkLogGroupBox.Enabled = false;
             WorkLogGroupBox.Location = new Point(12, 158);
             WorkLogGroupBox.Name = "WorkLogGroupBox";
-            WorkLogGroupBox.Size = new Size(310, 347);
+            WorkLogGroupBox.Size = new Size(408, 408);
             WorkLogGroupBox.TabIndex = 9;
             WorkLogGroupBox.TabStop = false;
             WorkLogGroupBox.Text = "Work Log";
+            // 
+            // CreatedUpdatedLabel
+            // 
+            CreatedUpdatedLabel.AutoSize = true;
+            CreatedUpdatedLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            CreatedUpdatedLabel.ForeColor = SystemColors.ControlDarkDark;
+            CreatedUpdatedLabel.Location = new Point(6, 324);
+            CreatedUpdatedLabel.Name = "CreatedUpdatedLabel";
+            CreatedUpdatedLabel.Size = new Size(136, 28);
+            CreatedUpdatedLabel.TabIndex = 11;
+            CreatedUpdatedLabel.Text = "(new worklog)";
             // 
             // NotesTextBox
             // 
@@ -96,7 +109,7 @@
             NotesTextBox.Location = new Point(6, 145);
             NotesTextBox.Name = "NotesTextBox";
             NotesTextBox.ScrollBars = RichTextBoxScrollBars.Vertical;
-            NotesTextBox.Size = new Size(298, 141);
+            NotesTextBox.Size = new Size(396, 176);
             NotesTextBox.TabIndex = 3;
             NotesTextBox.Text = "";
             // 
@@ -106,17 +119,16 @@
             HoursWorkedTextBox.MaxLength = 5;
             HoursWorkedTextBox.Name = "HoursWorkedTextBox";
             HoursWorkedTextBox.PlaceholderText = "hh:mm";
-            HoursWorkedTextBox.Size = new Size(298, 42);
+            HoursWorkedTextBox.Size = new Size(396, 42);
             HoursWorkedTextBox.TabIndex = 2;
             HoursWorkedTextBox.KeyPress += HoursWorkedTextBox_KeyPress;
             // 
             // SaveBtn
             // 
-            SaveBtn.AutoSize = true;
             SaveBtn.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            SaveBtn.Location = new Point(222, 292);
+            SaveBtn.Location = new Point(6, 355);
             SaveBtn.Name = "SaveBtn";
-            SaveBtn.Size = new Size(82, 47);
+            SaveBtn.Size = new Size(396, 47);
             SaveBtn.TabIndex = 4;
             SaveBtn.Text = "Save";
             SaveBtn.UseVisualStyleBackColor = true;
@@ -152,7 +164,7 @@
             DatePicker.Location = new Point(12, 40);
             DatePicker.MinDate = new DateTime(2024, 1, 1, 0, 0, 0, 0);
             DatePicker.Name = "DatePicker";
-            DatePicker.Size = new Size(310, 42);
+            DatePicker.Size = new Size(408, 42);
             DatePicker.TabIndex = 0;
             DatePicker.ValueChanged += DatePicker_ValueChanged;
             // 
@@ -161,7 +173,7 @@
             AutoScaleDimensions = new SizeF(14F, 36F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(334, 517);
+            ClientSize = new Size(432, 578);
             Controls.Add(DatePicker);
             Controls.Add(WorkLogGroupBox);
             Controls.Add(ProjectLabel);
@@ -193,5 +205,6 @@
 		private TextBox HoursWorkedTextBox;
 		private DateTimePicker DatePicker;
         private RichTextBox NotesTextBox;
+        private Label CreatedUpdatedLabel;
     }
 }
