@@ -72,7 +72,7 @@ namespace TimesheetTracker
                 }
                 else
                 {
-                    CreatedUpdatedLabel.Text = $"Last saved at {_selectedProject.UpdatedAt:hh:mm tt MM/dd/yy}.";
+                    CreatedUpdatedLabel.Text = $"Saved at {_selectedProject.UpdatedAt.ToLocalTime():hh:mm:ss tt MM/dd/yy}.";
                 }
 
                 ProjectFormPanel.Visible = true;
@@ -116,6 +116,8 @@ namespace TimesheetTracker
             if (edited.Id == 0)
             {
                 edited = _dataAccess.CreateProject(edited);
+                _selectedProject.CreatedAt = edited.CreatedAt;
+                _selectedProject.UpdatedAt = edited.UpdatedAt;
             }
             else
             {
@@ -129,14 +131,9 @@ namespace TimesheetTracker
             _selectedProject.Notes = edited.Notes;
             _selectedProject.IsActive = edited.IsActive;
 
-            MessageBox.Show(
-                "Successfully saved project.",
-                "Success",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+            CreatedUpdatedLabel.Text = $"Saved at {_selectedProject.UpdatedAt.ToLocalTime():hh:mm:ss tt MM/dd/yy}.";
 
             _projects.ResetBindings();
-            DoneEditing?.Invoke(this, EventArgs.Empty);
         }
 
         private void AddProjectButton_Click(object sender, EventArgs e)

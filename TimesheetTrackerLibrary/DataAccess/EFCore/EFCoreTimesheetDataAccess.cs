@@ -19,6 +19,8 @@ namespace TimesheetTrackerLibrary.DataAccess.EFCore
                 model.Notes = null;
             }
 
+            model.CreatedAt = model.UpdatedAt = DateTime.UtcNow;
+
             _ctx.Projects.Add(model);
             _ctx.SaveChanges();
 
@@ -69,6 +71,7 @@ namespace TimesheetTrackerLibrary.DataAccess.EFCore
 
             if (existing == null)
             {
+                model.CreatedAt = model.UpdatedAt = DateTime.UtcNow;
                 _ctx.WorkLogs.Add(model);
             }
             else
