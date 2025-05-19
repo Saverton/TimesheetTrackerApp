@@ -26,6 +26,8 @@ namespace TimesheetTracker
         private bool _isTimerRunning = false;
         private bool _isWorkSaved = true;
         private ProjectModel? _currentProject;
+        private ProjectManagerForm? _projectManagerForm;
+        private bool _shouldTimerResume = false;
 
         public DashboardForm(ITimesheetDataAccess dataAccess)
         {
@@ -99,10 +101,6 @@ namespace TimesheetTracker
             }
 
             ProjectsComboBox.SelectedIndex = projectIndex;
-
-            EditProjectLink.Enabled = true;
-            TimerControlBtn.Enabled = true;
-            NotesTextBox.Enabled = true;
         }
 
         private void EditProjectLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -162,7 +160,7 @@ namespace TimesheetTracker
                 _isWorkSaved == false &&
                 _currentProject is not null)
             {
-                this.SaveWorkLog();
+                SaveWorkLog();
             }
 
             if (selectedProject?.Id != _currentProject?.Id)
@@ -171,6 +169,16 @@ namespace TimesheetTracker
 
                 if (_currentProject is not null)
                 {
+                    EditProjectLink.Enabled = true;
+                    TimerControlBtn.Enabled = true;
+                    NotesTextBox.Enabled = true;
+
+                    if (_shouldTimerResume)
+                    {
+                        SetTimerRunning(true);
+                        _shouldTimerResume = false;
+                    }
+
                     var workLog = _dataAccess.GetWorkLog(_currentProject.Id, DateOnly.FromDateTime(DateTime.Now));
 
                     if (workLog is not null)
@@ -181,6 +189,14 @@ namespace TimesheetTracker
                         _isWorkSaved = true;
                         return;
                     }
+                }
+                else
+                {
+                    EditProjectLink.Enabled = false;
+                    TimerControlBtn.Enabled = false;
+                    NotesTextBox.Enabled = false;
+                    _shouldTimerResume = _isTimerRunning;
+                    SetTimerRunning(false);
                 }
 
                 _timeSpan = TimeSpan.Zero;
@@ -314,8 +330,34 @@ namespace TimesheetTracker
 
         private void projectsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using var form = Program.ServiceProvider.GetRequiredService<ProjectManagerForm>();
-            form.ShowDialog();
+            _projectManagerForm ??= Program.ServiceProvider.GetRequiredService<ProjectManagerForm>();
+            _projectManagerForm.ShowDialog();
+
+            // refresh project data
+            var oldSelected = ProjectsComboBox.SelectedValue as ProjectModel;
+
+            _projects.Clear();
+            _dataAccess.GetAllProjects()
+                .ForEach(_projects.Add);
+            _projects.ResetBindings();
+
+
+            // save old selected ID
+
+            if (oldSelected != null)
+            {
+                var selectedProject = _projects.FirstOrDefault(prj => prj.Id == oldSelected.Id);
+
+                if (selectedProject != null)
+                {
+                    var selectedIdx = _projects.IndexOf(selectedProject);
+                    ProjectsComboBox.SelectedIndex = selectedIdx;
+                }
+                else
+                {
+                    ProjectsComboBox.SelectedIndex = -1;
+                }
+            }
         }
     }
 }

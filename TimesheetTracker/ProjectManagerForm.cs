@@ -21,6 +21,9 @@ namespace TimesheetTracker
         private BindingList<ProjectModel> _projects;
         private ProjectModel? _selectedProject;
 
+        public delegate void DoneEditingHandler(object? sender, EventArgs args);
+        public event DoneEditingHandler? DoneEditing;
+
         public ProjectManagerForm(ITimesheetDataAccess dataAccess)
         {
             _dataAccess = dataAccess;
@@ -133,18 +136,24 @@ namespace TimesheetTracker
                 MessageBoxIcon.Information);
 
             _projects.ResetBindings();
+            DoneEditing?.Invoke(this, EventArgs.Empty);
         }
 
         private void AddProjectButton_Click(object sender, EventArgs e)
         {
             var newProject = new ProjectModel
-            { 
+            {
                 ProjectName = "New Project"
             };
 
             _projects.Add(newProject);
             var newIdx = _projects.IndexOf(newProject);
             ProjectsListBox.SetSelected(newIdx, true);
+        }
+
+        private void ProjectManagerForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DoneEditing?.Invoke(this, EventArgs.Empty);
         }
     }
 }

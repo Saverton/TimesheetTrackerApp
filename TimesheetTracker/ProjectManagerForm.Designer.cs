@@ -221,6 +221,7 @@
             Margin = new Padding(6, 7, 6, 7);
             Name = "ProjectManagerForm";
             Text = "ProjectManagerForm";
+            FormClosing += ProjectManagerForm_FormClosing;
             ProjectFormPanel.ResumeLayout(false);
             ProjectFormPanel.PerformLayout();
             ResumeLayout(false);

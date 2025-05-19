@@ -31,7 +31,7 @@ namespace TimesheetTrackerLibrary.DataAccess.EFCore
                 .ToList();
 
         public WorkLogModel? GetWorkLog(int projectId, DateOnly date) =>
-            _ctx.WorkLogs.FirstOrDefault(log => log.ProjectId == projectId && DateOnly.FromDateTime(log.CreatedAt) == date);
+            _ctx.WorkLogs.FirstOrDefault(log => log.ProjectId == projectId && log.Date == date);
 
         public List<WorkLogModel> GetWorkLogsInDateRange(DateOnly startDate, DateOnly endDate)
         {
@@ -57,21 +57,28 @@ namespace TimesheetTrackerLibrary.DataAccess.EFCore
             _ctx.SaveChanges();
         }
 
-        public WorkLogModel UpsertWorkLog(WorkLogModel model)
+        public void UpsertWorkLog(WorkLogModel model)
         {
             if (string.IsNullOrWhiteSpace(model.Notes))
             {
                 model.Notes = null;
             }
 
-            if (model.Id == default)
+            var existing = _ctx.WorkLogs
+                .FirstOrDefault(log => log.ProjectId == model.ProjectId && log.Date == model.Date);
+
+            if (existing == null)
             {
                 _ctx.WorkLogs.Add(model);
             }
+            else
+            {
+                existing.HoursWorked = model.HoursWorked;
+                existing.Notes = model.Notes;
+                existing.UpdatedAt = DateTime.UtcNow;
+            }
 
             _ctx.SaveChanges();
-
-            return model;
         }
     }
 }
