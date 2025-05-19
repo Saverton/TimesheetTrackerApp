@@ -33,20 +33,21 @@ namespace TimesheetTracker
                 .Build();
             ServiceProvider = host.Services;
 
-            using (var scope = ServiceProvider.CreateScope())
+            using (var prepScope = ServiceProvider.CreateScope())
             {
-                using var ctx = scope.ServiceProvider.GetRequiredService<TimesheetTrackerDbContext>();
+                using var ctx = prepScope.ServiceProvider.GetRequiredService<TimesheetTrackerDbContext>();
                 ctx.Database.Migrate();
 
                 string oldDbPath = SqliteLocationProvider.GetSqlitePath(OLD_DBNAME);
                 if (File.Exists(oldDbPath))
                 {
-                    DapperToEFCoreMigrator.MigrateDapperToEFCore(scope.ServiceProvider);
+                    DapperToEFCoreMigrator.MigrateDapperToEFCore(prepScope.ServiceProvider);
                     File.Delete(oldDbPath);
                 }
             }
 
-            Application.Run(ServiceProvider.GetRequiredService<DashboardForm>());
+            using var appScope = ServiceProvider.CreateScope();
+            Application.Run(appScope.ServiceProvider.GetRequiredService<DashboardForm>());
         }
 
         private static void ConfigureServices(HostBuilderContext context, IServiceCollection services)

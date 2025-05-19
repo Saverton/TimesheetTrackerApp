@@ -212,7 +212,7 @@
             // 
             AutoScaleDimensions = new SizeF(15F, 37F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1500, 831);
+            ClientSize = new Size(932, 678);
             Controls.Add(AddProjectButton);
             Controls.Add(ProjectFormPanel);
             Controls.Add(ProjectsListBox);

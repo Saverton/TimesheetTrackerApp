@@ -27,7 +27,7 @@ namespace TimesheetTracker
 
             InitializeComponent();
 
-            _projects = [.. _dataAccess.GetAllProjects()];
+            _projects = [.. _dataAccess.GetAllProjects(includeInactive: true)];
 
             WireUpLists();
 

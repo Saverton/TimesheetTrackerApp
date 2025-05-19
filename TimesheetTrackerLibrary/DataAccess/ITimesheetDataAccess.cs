@@ -5,7 +5,7 @@ namespace TimesheetTrackerLibrary.DataAccess
     public interface ITimesheetDataAccess
     {
         ProjectModel CreateProject(ProjectModel model);
-        List<ProjectModel> GetAllProjects();
+        List<ProjectModel> GetAllProjects(bool includeInactive = false);
         WorkLogModel? GetWorkLog(int projectId, DateOnly date);
         List<WorkLogModel> GetWorkLogsInDateRange(DateOnly startDate, DateOnly endDate);
         void UpdateProject(ProjectModel model);

@@ -25,8 +25,10 @@ namespace TimesheetTrackerLibrary.DataAccess.EFCore
             return model;
         }
 
-        public List<ProjectModel> GetAllProjects() =>
-            _ctx.Projects.ToList();
+        public List<ProjectModel> GetAllProjects(bool includeInactive = false) =>
+            _ctx.Projects
+                .Where(prj => includeInactive || prj.IsActive)
+                .ToList();
 
         public WorkLogModel? GetWorkLog(int projectId, DateOnly date) =>
             _ctx.WorkLogs.FirstOrDefault(log => log.ProjectId == projectId && DateOnly.FromDateTime(log.CreatedAt) == date);
@@ -50,6 +52,7 @@ namespace TimesheetTrackerLibrary.DataAccess.EFCore
             existing.ProjectPhase = model.ProjectPhase;
             existing.Notes = string.IsNullOrWhiteSpace(model.Notes) ? null : model.Notes;
             existing.UpdatedAt = DateTime.UtcNow;
+            existing.IsActive = model.IsActive;
 
             _ctx.SaveChanges();
         }
