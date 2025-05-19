@@ -13,14 +13,6 @@ namespace TimesheetTrackerLibrary.DataAccess.EFCore
         public DbSet<ProjectModel> Projects { get; set; }
         public DbSet<WorkLogModel> WorkLogs { get; set; }
 
-        public string DbPath { get; }
-
-        public TimesheetTrackerDbContext()
-        {
-            DbPath = SqliteLocationProvider.GetSqlitePath();
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder options) =>
-            options.UseSqlite($"Data Source={DbPath}");
+        public TimesheetTrackerDbContext(DbContextOptions options) : base(options) { }
     }
 }

@@ -12,7 +12,7 @@ namespace TimesheetTrackerLibrary.Models
 		public int Id { get; set; }
 		public int ProjectId { get; set; }
 		public ProjectModel? Project { get; set; }
-		public string Date { get; set; } = DateTime.Now.ToString("yyyy-MM-dd");
+        public DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 		public double HoursWorked { get; set; }
 		public string? Notes { get; set; }
 		public DateTime CreatedAt { get; set; }

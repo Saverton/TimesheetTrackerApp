@@ -1,0 +1,74 @@
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TimesheetTrackerLibrary.Models;
+
+namespace TimesheetTrackerLibrary.DataAccess.EFCore
+{
+    public class EFCoreTimesheetDataAccess(TimesheetTrackerDbContext ctx) : ITimesheetDataAccess
+    {
+        private readonly TimesheetTrackerDbContext _ctx = ctx;
+
+        public ProjectModel CreateProject(ProjectModel model)
+        {
+            if (string.IsNullOrWhiteSpace(model.Notes))
+            {
+                model.Notes = null;
+            }
+
+            _ctx.Projects.Add(model);
+            _ctx.SaveChanges();
+
+            return model;
+        }
+
+        public List<ProjectModel> GetAllProjects() =>
+            _ctx.Projects.ToList();
+
+        public WorkLogModel? GetWorkLog(int projectId, DateOnly date) =>
+            _ctx.WorkLogs.FirstOrDefault(log => log.ProjectId == projectId && DateOnly.FromDateTime(log.CreatedAt) == date);
+
+        public List<WorkLogModel> GetWorkLogsInDateRange(DateOnly startDate, DateOnly endDate)
+        {
+            var (startDateTime, endDateTime) = (new DateTime(startDate, TimeOnly.MinValue), new DateTime(endDate, TimeOnly.MaxValue));
+
+            return _ctx.WorkLogs
+                .Include(log => log.Project)
+                .Where(log => log.CreatedAt >= startDateTime && log.CreatedAt <= endDateTime)
+                .ToList();
+        }
+
+        public void UpdateProject(ProjectModel model)
+        {
+            var existing = _ctx.Projects.First(prj => prj.Id == model.Id);
+
+            existing.ProjectName = model.ProjectName;
+            existing.ProjectNumber = model.ProjectNumber;
+            existing.ProjectPhase = model.ProjectPhase;
+            existing.Notes = string.IsNullOrWhiteSpace(model.Notes) ? null : model.Notes;
+            existing.UpdatedAt = DateTime.UtcNow;
+
+            _ctx.SaveChanges();
+        }
+
+        public WorkLogModel UpsertWorkLog(WorkLogModel model)
+        {
+            if (string.IsNullOrWhiteSpace(model.Notes))
+            {
+                model.Notes = null;
+            }
+
+            if (model.Id == default)
+            {
+                _ctx.WorkLogs.Add(model);
+            }
+
+            _ctx.SaveChanges();
+
+            return model;
+        }
+    }
+}

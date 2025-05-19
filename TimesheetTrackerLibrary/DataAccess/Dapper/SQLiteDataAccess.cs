@@ -13,13 +13,11 @@ namespace TimesheetTrackerLibrary.DataAccess.Dapper
 	{
 		private readonly string _connectionString;
 
-		public SQLiteDataAccess()
+		public SQLiteDataAccess(string dbPath)
 		{
             string exeFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
             string baseDir = Path.GetDirectoryName(exeFullPath)!;
             string dbTemplatePath = Path.Combine(baseDir, "TimesheetTracker.db");
-
-            string dbPath = SqliteLocationProvider.GetSqlitePath();
 
             if (!File.Exists(dbPath))
             {

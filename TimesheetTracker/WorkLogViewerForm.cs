@@ -19,7 +19,7 @@ namespace TimesheetTracker
 			InitializeComponent();
 
 			ProjectDisplayTextBox.Text = workLog.Project!.LongDisplay;
-			DatePicker.Value = DateTime.Parse(workLog.Date);
+			DatePicker.Value = new DateTime(workLog.Date, TimeOnly.MinValue);
 			HoursWorkedTextBox.Text = TimesheetTrackerLogic.GetTimeSpanFromHoursWorked(workLog.HoursWorked).ToString(@"hh\:mm\:ss");
 			NotesTextBox.Text = workLog.Notes ?? "(no notes)";
 		}

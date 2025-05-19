@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TimesheetTrackerLibrary.DataAccess
 {
-    internal static class SqliteLocationProvider
+    public static class SqliteLocationProvider
     {
-        public static string GetSqlitePath()
+        public static string GetSqlitePath(string dbFilename)
         {
             // string exeFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
             // string baseDir = Path.GetDirectoryName(exeFullPath)!;
@@ -21,7 +21,7 @@ namespace TimesheetTrackerLibrary.DataAccess
 #else
             string dbDir = Path.Combine(userDir, "AppData\\Local\\TimesheetTracker");
 #endif
-            string dbPath = Path.Combine(dbDir, "TimesheetTracker.db");
+            string dbPath = Path.Combine(dbDir, dbFilename);
 
             if (!File.Exists(dbPath))
             {

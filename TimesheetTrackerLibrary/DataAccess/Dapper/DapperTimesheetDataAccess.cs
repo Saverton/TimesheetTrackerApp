@@ -69,15 +69,17 @@ namespace TimesheetTrackerLibrary.DataAccess.Dapper
             return existing;
         }
 
-        public WorkLogModel? GetWorkLog(int projectId, string date)
+        public WorkLogModel? GetWorkLog(int projectId, DateOnly date)
         {
+            string dateStr = date.ToString("yyyy-MM-dd");
+
             string sql = "SELECT * FROM WorkLogs " +
                 "WHERE ProjectId = @ProjectId AND Date = @Date";
 
             var output = _database.LoadData<WorkLogModel, dynamic>(sql, new
             {
                 ProjectId = projectId,
-                Date = date
+                Date = dateStr
             }).FirstOrDefault();
 
             return output;

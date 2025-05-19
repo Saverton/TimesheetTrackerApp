@@ -1,51 +1,69 @@
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TimesheetTrackerLibrary.DataAccess;
 using TimesheetTrackerLibrary.DataAccess.Dapper;
+using TimesheetTrackerLibrary.DataAccess.EFCore;
 
 namespace TimesheetTracker
 {
-	internal static class Program
-	{
-        // Don't use before host is created.
-        public static IServiceProvider ServiceProvider { get; private set; } = null!; 
+    internal static class Program
+    {
+        const string OLD_DBNAME = "TimesheetTracker.db";
+        const string NEW_DBNAME = "TimesheetTracker_EFCore.db";
 
-		/// <summary>
-		///  The main entry point for the application.
-		/// </summary>
-		[STAThread]
-		static void Main()
-		{
+        // Don't use before host is created.
+        public static IServiceProvider ServiceProvider { get; private set; } = null!;
+
+        /// <summary>
+        ///  The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
-			// To customize application configuration such as set high DPI settings or default font,
-			// see https://aka.ms/applicationconfiguration.
-			ApplicationConfiguration.Initialize();
+            // To customize application configuration such as set high DPI settings or default font,
+            // see https://aka.ms/applicationconfiguration.
+            ApplicationConfiguration.Initialize();
 
             var host = Host.CreateDefaultBuilder()
                 .ConfigureServices(ConfigureServices)
                 .Build();
             ServiceProvider = host.Services;
 
+            using (var scope = ServiceProvider.CreateScope())
+            {
+                using var ctx = scope.ServiceProvider.GetRequiredService<TimesheetTrackerDbContext>();
+                ctx.Database.Migrate();
+
+                string oldDbPath = SqliteLocationProvider.GetSqlitePath(OLD_DBNAME);
+                if (File.Exists(oldDbPath))
+                {
+                    DapperToEFCoreMigrator.MigrateDapperToEFCore(scope.ServiceProvider);
+                    File.Delete(oldDbPath);
+                }
+            }
+
             Application.Run(ServiceProvider.GetRequiredService<DashboardForm>());
-		}
+        }
 
         private static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
         {
             // add services
-            services.AddSingleton<IDataAccess, SQLiteDataAccess>();
-            services.AddSingleton<ITimesheetDataAccess, DapperTimesheetDataAccess>();
+            var newDbPath = SqliteLocationProvider.GetSqlitePath(NEW_DBNAME);
+            services.AddDbContext<TimesheetTrackerDbContext>(options =>
+                options.UseSqlite($"Data Source={newDbPath}"));
+            var oldDbPath = SqliteLocationProvider.GetSqlitePath(OLD_DBNAME);
+            services.AddSingleton<IDataAccess, SQLiteDataAccess>(_ => new SQLiteDataAccess(oldDbPath));
+            services.AddTransient<ITimesheetDataAccess, EFCoreTimesheetDataAccess>();
 
             // add forms
-            services.AddSingleton<DashboardForm>();
+            services.AddScoped<DashboardForm>();
             services.AddTransient<SettingsForm>();
             services.AddTransient<TimesheetViewerForm>();
-            services.AddTransient<ProjectViewerForm>();
             services.AddTransient<ProjectManagerForm>();
-            services.AddTransient<ProjectForm>(); // To be replaced by ProjectManagerForm
-            services.AddTransient<WorkLogViewerForm>();
-            services.AddTransient<EditWorkLogForm>();
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs args)
@@ -54,7 +72,7 @@ namespace TimesheetTracker
 
             // dump to file
             var wd = AppDomain.CurrentDomain.BaseDirectory;
-            var dir = Path.Combine(wd, "Logs"); 
+            var dir = Path.Combine(wd, "Logs");
             var filename = $"TimesheetTracker_CrashLog_{DateTime.Now:yyyyMMdd%THHmmss}.log";
 
             try

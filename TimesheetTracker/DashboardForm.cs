@@ -171,7 +171,7 @@ namespace TimesheetTracker
 
                 if (_currentProject is not null)
                 {
-                    var workLog = _dataAccess.GetWorkLog(_currentProject.Id, DateTime.Now.ToString("yyyy-MM-dd"));
+                    var workLog = _dataAccess.GetWorkLog(_currentProject.Id, DateOnly.FromDateTime(DateTime.Now));
 
                     if (workLog is not null)
                     {
@@ -223,7 +223,7 @@ namespace TimesheetTracker
                 ProjectId = _currentProject.Id,
                 HoursWorked = _timeSpan.TotalHours,
                 Notes = NotesTextBox.Text,
-                Date = _dateToSave.ToString("yyyy-MM-dd"),
+                Date = _dateToSave,
             };
 
             _dataAccess.UpsertWorkLog(workLog);
@@ -303,7 +303,7 @@ namespace TimesheetTracker
 
         public void ReceiveData(WorkLogModel data)
         {
-            if (data.ProjectId == _currentProject?.Id && DateOnly.Parse(data.Date) == DateOnly.FromDateTime(DateTime.Now))
+            if (data.ProjectId == _currentProject?.Id && data.Date == DateOnly.FromDateTime(DateTime.Now))
             {
                 NotesTextBox.Text = data.Notes;
                 _timeSpan = TimesheetTrackerLogic.GetTimeSpanFromHoursWorked(data.HoursWorked);

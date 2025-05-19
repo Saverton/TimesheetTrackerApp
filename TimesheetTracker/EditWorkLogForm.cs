@@ -88,18 +88,14 @@ namespace TimesheetTracker
             if (project != null)
             {
                 var date = DateOnly.FromDateTime(DatePicker.Value);
-                workLog = _dataAccess.GetWorkLog(project.Id, date.ToString("yyyy-MM-dd"));
-
-                if (workLog == null)
-                {
-                    workLog = new WorkLogModel()
+                workLog = _dataAccess.GetWorkLog(project.Id, date); 
+                workLog ??= new WorkLogModel()
                     {
                         ProjectId = project.Id,
                         Project = project,
-                        Date = date.ToString("yyyy-MM-dd"),
+                        Date = date,
                         HoursWorked = 0
                     };
-                }
             }
 
             return workLog;

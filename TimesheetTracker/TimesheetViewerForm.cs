@@ -143,7 +143,7 @@ namespace TimesheetTracker
 
                 for (DateOnly day = week.StartDate; day.CompareTo(week.EndDate) <= 0; day = day.AddDays(1))
                 {
-                    var log = projectLogs.FirstOrDefault(x => x.Date == day.ToString("yyyy-MM-dd"));
+                    var log = projectLogs.FirstOrDefault(x => x.Date == day);
 
                     if (log is not null)
                     {
