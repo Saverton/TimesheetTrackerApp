@@ -31,7 +31,6 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DashboardForm));
             ProjectsComboBox = new ComboBox();
-            AddProjectLink = new LinkLabel();
             EditProjectLink = new LinkLabel();
             TimerLabel = new Label();
             TimerControlBtn = new Button();
@@ -43,11 +42,11 @@
             exitToolStripMenuItem = new ToolStripMenuItem();
             editToolStripMenuItem = new ToolStripMenuItem();
             workLogsToolStripMenuItem = new ToolStripMenuItem();
+            projectsToolStripMenuItem = new ToolStripMenuItem();
             viewToolStripMenuItem = new ToolStripMenuItem();
             timesheetsToolStripMenuItem = new ToolStripMenuItem();
             Timer = new System.Windows.Forms.Timer(components);
             NotesTextBox = new RichTextBox();
-            projectsToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -61,26 +60,16 @@
             ProjectsComboBox.TabIndex = 0;
             ProjectsComboBox.SelectedIndexChanged += ProjectsComboBox_SelectedValueChanged;
             // 
-            // AddProjectLink
-            // 
-            AddProjectLink.AutoSize = true;
-            AddProjectLink.Location = new Point(184, 77);
-            AddProjectLink.Name = "AddProjectLink";
-            AddProjectLink.Size = new Size(66, 37);
-            AddProjectLink.TabIndex = 1;
-            AddProjectLink.TabStop = true;
-            AddProjectLink.Text = "Add";
-            AddProjectLink.LinkClicked += AddProjectLink_LinkClicked;
-            // 
             // EditProjectLink
             // 
             EditProjectLink.AutoSize = true;
-            EditProjectLink.Location = new Point(256, 77);
+            EditProjectLink.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            EditProjectLink.Location = new Point(231, 77);
             EditProjectLink.Name = "EditProjectLink";
-            EditProjectLink.Size = new Size(63, 37);
+            EditProjectLink.Size = new Size(91, 28);
             EditProjectLink.TabIndex = 2;
             EditProjectLink.TabStop = true;
-            EditProjectLink.Text = "Edit";
+            EditProjectLink.Text = "Add/Edit";
             EditProjectLink.LinkClicked += EditProjectLink_LinkClicked;
             // 
             // TimerLabel
@@ -168,9 +157,16 @@
             // workLogsToolStripMenuItem
             // 
             workLogsToolStripMenuItem.Name = "workLogsToolStripMenuItem";
-            workLogsToolStripMenuItem.Size = new Size(224, 26);
+            workLogsToolStripMenuItem.Size = new Size(161, 26);
             workLogsToolStripMenuItem.Text = "Work Logs";
             workLogsToolStripMenuItem.Click += workLogsToolStripMenuItem_Click;
+            // 
+            // projectsToolStripMenuItem
+            // 
+            projectsToolStripMenuItem.Name = "projectsToolStripMenuItem";
+            projectsToolStripMenuItem.Size = new Size(161, 26);
+            projectsToolStripMenuItem.Text = "Projects";
+            projectsToolStripMenuItem.Click += projectsToolStripMenuItem_Click;
             // 
             // viewToolStripMenuItem
             // 
@@ -202,13 +198,6 @@
             NotesTextBox.Text = "";
             NotesTextBox.TextChanged += NotesTextBox_TextChanged;
             // 
-            // projectsToolStripMenuItem
-            // 
-            projectsToolStripMenuItem.Name = "projectsToolStripMenuItem";
-            projectsToolStripMenuItem.Size = new Size(224, 26);
-            projectsToolStripMenuItem.Text = "Projects";
-            projectsToolStripMenuItem.Click += projectsToolStripMenuItem_Click;
-            // 
             // DashboardForm
             // 
             AutoScaleDimensions = new SizeF(14F, 36F);
@@ -221,7 +210,6 @@
             Controls.Add(TimerControlBtn);
             Controls.Add(TimerLabel);
             Controls.Add(EditProjectLink);
-            Controls.Add(AddProjectLink);
             Controls.Add(ProjectsComboBox);
             Controls.Add(menuStrip1);
             Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -243,7 +231,6 @@
         #endregion
 
         private ComboBox ProjectsComboBox;
-		private LinkLabel AddProjectLink;
 		private LinkLabel EditProjectLink;
 		private Label TimerLabel;
 		private Button TimerControlBtn;

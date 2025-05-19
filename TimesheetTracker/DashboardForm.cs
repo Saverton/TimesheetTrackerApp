@@ -84,12 +84,6 @@ namespace TimesheetTracker
             ProjectsComboBox.DisplayMember = nameof(ProjectModel.LongDisplay);
         }
 
-        private void AddProjectLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            var form = new ProjectForm(_dataAccess, this);
-            form.ShowDialog();
-        }
-
         public void ReceiveData(ProjectModel project)
         {
             int projectIndex = GetProjectIndex(project);
@@ -105,13 +99,7 @@ namespace TimesheetTracker
 
         private void EditProjectLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var selectedProject = ProjectsComboBox.SelectedItem as ProjectModel;
-
-            if (selectedProject is not null)
-            {
-                var form = new ProjectForm(_dataAccess, this, selectedProject);
-                form.ShowDialog();
-            }
+            OpenProjectManagerForm();
         }
 
         private void TimerControlBtn_Click(object sender, EventArgs e)
@@ -330,19 +318,18 @@ namespace TimesheetTracker
 
         private void projectsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            OpenProjectManagerForm();
+        }
+
+        private void OpenProjectManagerForm()
+        {
             _projectManagerForm ??= Program.ServiceProvider.GetRequiredService<ProjectManagerForm>();
             _projectManagerForm.ShowDialog();
 
-            // refresh project data
             var oldSelected = ProjectsComboBox.SelectedValue as ProjectModel;
 
-            _projects.Clear();
-            _dataAccess.GetAllProjects()
-                .ForEach(_projects.Add);
-            _projects.ResetBindings();
-
-
-            // save old selected ID
+            _projects = new(_dataAccess.GetAllProjects());
+            WireUpLists();
 
             if (oldSelected != null)
             {
