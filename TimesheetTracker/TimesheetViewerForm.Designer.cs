@@ -48,7 +48,7 @@
             TimesheetDataGrid.Name = "TimesheetDataGrid";
             TimesheetDataGrid.ReadOnly = true;
             TimesheetDataGrid.RowHeadersWidth = 51;
-            TimesheetDataGrid.Size = new Size(945, 328);
+            TimesheetDataGrid.Size = new Size(1459, 361);
             TimesheetDataGrid.TabIndex = 2;
             // 
             // YearComboBox
@@ -95,7 +95,7 @@
             // 
             DateTimeGeneratedLabel.AutoSize = true;
             DateTimeGeneratedLabel.ForeColor = SystemColors.ControlDarkDark;
-            DateTimeGeneratedLabel.Location = new Point(635, 48);
+            DateTimeGeneratedLabel.Location = new Point(1149, 48);
             DateTimeGeneratedLabel.Name = "DateTimeGeneratedLabel";
             DateTimeGeneratedLabel.Size = new Size(321, 28);
             DateTimeGeneratedLabel.TabIndex = 5;
@@ -107,7 +107,7 @@
             AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(968, 420);
+            ClientSize = new Size(1482, 453);
             Controls.Add(DateTimeGeneratedLabel);
             Controls.Add(WeekLabel);
             Controls.Add(WeekComboBox);

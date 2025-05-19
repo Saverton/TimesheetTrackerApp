@@ -36,6 +36,16 @@ namespace TimesheetTracker
             timesheetBindingSource.DataSource = timesheetTable;
             TimesheetDataGrid.DataSource = timesheetBindingSource;
             TimesheetDataGrid.CellMouseDoubleClick += OnCellDoubleClick;
+
+            SetGridInitialDisplay();
+        }
+
+        private void SetGridInitialDisplay()
+        {
+            if (TimesheetDataGrid.Columns.Count > 0)
+            {
+                TimesheetDataGrid.Columns[0].Width = 350; // project name/number column
+            }
         }
 
         private void LoadYears()
@@ -194,6 +204,7 @@ namespace TimesheetTracker
 
             timesheetTable.AcceptChanges();
 
+            SetGridInitialDisplay();
         }
 
         private void OnCellDoubleClick(object? sender, DataGridViewCellMouseEventArgs? e)
