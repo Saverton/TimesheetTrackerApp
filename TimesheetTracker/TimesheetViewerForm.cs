@@ -223,7 +223,7 @@ namespace TimesheetTracker
             }
             else if (cell.Value is WorkLogModel workLog)
             {
-                var form = new WorkLogViewerForm(workLog);
+                var form = new WorkLogViewerForm(_dataAccess, workLog);
                 form.ShowDialog();
             }
         }

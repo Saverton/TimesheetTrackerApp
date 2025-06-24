@@ -203,6 +203,10 @@ namespace TimesheetTracker
                         SetTimerRunning(true);
                         _shouldTimerResume = false;
                     }
+                    else if (_isTimerRunning)
+                    {
+                        StartPunch();
+                    }
 
                     var workLog = _dataAccess.GetWorkLog(_currentProject.Id, DateOnly.FromDateTime(DateTime.Now));
 
