@@ -12,7 +12,14 @@ namespace TimesheetTrackerLibrary.DataAccess.EFCore
     {
         public DbSet<ProjectModel> Projects { get; set; }
         public DbSet<WorkLogModel> WorkLogs { get; set; }
+        public DbSet<PunchLogModel> PunchLogs { get; set; }
 
+        public TimesheetTrackerDbContext() : base() { }
         public TimesheetTrackerDbContext(DbContextOptions options) : base(options) { }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+        }
     }
 }

@@ -33,12 +33,15 @@ namespace TimesheetTrackerLibrary.DataAccess.EFCore
                 .ToList();
 
         public WorkLogModel? GetWorkLog(int projectId, DateOnly date) =>
-            _ctx.WorkLogs.FirstOrDefault(log => log.ProjectId == projectId && log.Date == date);
+            _ctx.WorkLogs
+                .Include(log => log.PunchLogs)
+                .FirstOrDefault(log => log.ProjectId == projectId && log.Date == date);
 
         public List<WorkLogModel> GetWorkLogsInDateRange(DateOnly startDate, DateOnly endDate) =>
             _ctx.WorkLogs
                 .AsNoTracking()
                 .Include(log => log.Project)
+                .Include(log => log.PunchLogs)
                 .Where(log => log.Date >= startDate && log.Date <= endDate)
                 .ToList();
 
@@ -76,6 +79,23 @@ namespace TimesheetTrackerLibrary.DataAccess.EFCore
                 existing.HoursWorked = model.HoursWorked;
                 existing.Notes = model.Notes;
                 existing.UpdatedAt = DateTime.UtcNow;
+            }
+
+            _ctx.SaveChanges();
+        }
+
+        public void UpsertPunchLog(PunchLogModel punchLog)
+        {
+            var existing = _ctx.PunchLogs.FirstOrDefault(log => log.Id == punchLog.Id);
+
+            if (existing == null)
+            {
+                _ctx.Add(punchLog);
+            }
+            else
+            {
+                existing.StartTime = punchLog.StartTime;
+                existing.EndTime = punchLog.EndTime;
             }
 
             _ctx.SaveChanges();

@@ -28,6 +28,7 @@ namespace TimesheetTracker
         private ProjectModel? _currentProject;
         private ProjectManagerForm? _projectManagerForm;
         private bool _shouldTimerResume = false;
+        private PunchLogModel? _currentPunch;
 
         public DashboardForm(ITimesheetDataAccess dataAccess)
         {
@@ -111,16 +112,47 @@ namespace TimesheetTracker
         {
             if (value)
             {
+                StartPunch();
                 Timer.Start();
                 TimerControlBtn.Text = "Stop";
                 _isTimerRunning = true;
             }
             else
             {
+                EndPunch();
                 Timer.Stop();
                 TimerControlBtn.Text = "Start";
                 _isTimerRunning = false;
             }
+        }
+
+        private void StartPunch()
+        {
+            if (_currentPunch != null)
+                throw new Exception($"Previous {nameof(_currentPunch)} was not disposed of");
+
+            _currentPunch = new PunchLogModel
+            {
+                StartTime = DateTime.Now,
+            };
+        }
+
+        private void EndPunch()
+        {
+            if (_currentPunch == null)
+                return;
+            if (_currentProject == null)
+                throw new Exception($"{nameof(_currentProject)} is null");
+
+            SaveWorkLog();
+            var workLog = _dataAccess.GetWorkLog(
+                _currentProject.Id,
+                DateOnly.FromDateTime(DateTime.Now))!;
+            _currentPunch.EndTime = DateTime.Now;
+            _currentPunch.WorkLogId = workLog.Id;
+
+            _dataAccess.UpsertPunchLog(_currentPunch);
+            _currentPunch = null;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -149,6 +181,11 @@ namespace TimesheetTracker
                 _currentProject is not null)
             {
                 SaveWorkLog();
+            }
+
+            if (_currentPunch != null)
+            {
+                EndPunch();
             }
 
             if (selectedProject?.Id != _currentProject?.Id)
@@ -286,6 +323,10 @@ namespace TimesheetTracker
                 if (result == DialogResult.Yes)
                 {
                     SaveWorkLog();
+                    if (_currentProject != null)
+                    {
+                        EndPunch();
+                    }
                 }
                 else if (result == DialogResult.Cancel)
                 {

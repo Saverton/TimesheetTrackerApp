@@ -10,5 +10,6 @@ namespace TimesheetTrackerLibrary.DataAccess
         List<WorkLogModel> GetWorkLogsInDateRange(DateOnly startDate, DateOnly endDate);
         void UpdateProject(ProjectModel model);
         void UpsertWorkLog(WorkLogModel model);
+        void UpsertPunchLog(PunchLogModel model);
     }
 }

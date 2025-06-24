@@ -17,11 +17,9 @@ namespace TimesheetTrackerLibrary.Models
 		public string? Notes { get; set; }
 		public DateTime CreatedAt { get; set; }
 		public DateTime UpdatedAt { get; set; }
+        public List<PunchLogModel> PunchLogs { get; set; } = [];
         [NotMapped]
-		public string ProjectDisplay 
-		{ 
-			get => Project?.LongDisplay ?? $"Project Id: {ProjectId}"; 
-		}
+		public string ProjectDisplay => Project?.LongDisplay ?? $"Project Id: {ProjectId}"; 
 
 		public override string ToString()
 		{
