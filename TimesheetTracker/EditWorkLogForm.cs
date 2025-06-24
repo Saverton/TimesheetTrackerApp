@@ -87,7 +87,7 @@ namespace TimesheetTracker
                 }
                 else
                 {
-                    CreatedUpdatedLabel.Text = $"Saved at {workLog.UpdatedAt:hh:mm:ss tt MM/dd/yy}";
+                    CreatedUpdatedLabel.Text = $"Saved at {workLog.UpdatedAt.ToLocalTime():hh:mm:ss tt MM/dd/yy}";
                 }
 			}
         }
@@ -140,7 +140,7 @@ namespace TimesheetTracker
 
 				_callingForm.ReceiveData(workLog);
 
-                CreatedUpdatedLabel.Text = $"Saved at {workLog.UpdatedAt:hh:mm:ss tt MM/dd/yy}";
+                CreatedUpdatedLabel.Text = $"Saved at {workLog.UpdatedAt.ToLocalTime():hh:mm:ss tt MM/dd/yy}";
 			}
 		}
 
