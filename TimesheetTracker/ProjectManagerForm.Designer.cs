@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectManagerForm));
             label1 = new Label();
             ProjectsListBox = new ListBox();
             ProjectFormPanel = new Panel();
@@ -52,7 +53,7 @@
             label1.Location = new Point(19, 20);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(115, 38);
+            label1.Size = new Size(133, 45);
             label1.TabIndex = 0;
             label1.Text = "Projects";
             // 
@@ -60,11 +61,11 @@
             // 
             ProjectsListBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ProjectsListBox.FormattingEnabled = true;
-            ProjectsListBox.ItemHeight = 28;
+            ProjectsListBox.ItemHeight = 32;
             ProjectsListBox.Location = new Point(13, 61);
             ProjectsListBox.Margin = new Padding(4, 2, 4, 2);
             ProjectsListBox.Name = "ProjectsListBox";
-            ProjectsListBox.Size = new Size(440, 592);
+            ProjectsListBox.Size = new Size(440, 580);
             ProjectsListBox.TabIndex = 1;
             ProjectsListBox.SelectedValueChanged += ProjectsListBox_SelectedValueChanged;
             // 
@@ -94,7 +95,7 @@
             CreatedUpdatedLabel.ForeColor = SystemColors.ControlDarkDark;
             CreatedUpdatedLabel.Location = new Point(4, 501);
             CreatedUpdatedLabel.Name = "CreatedUpdatedLabel";
-            CreatedUpdatedLabel.Size = new Size(126, 28);
+            CreatedUpdatedLabel.Size = new Size(153, 32);
             CreatedUpdatedLabel.TabIndex = 10;
             CreatedUpdatedLabel.Text = "(new project)";
             // 
@@ -115,7 +116,7 @@
             ActiveCheckBox.Location = new Point(4, 457);
             ActiveCheckBox.Margin = new Padding(4, 2, 4, 2);
             ActiveCheckBox.Name = "ActiveCheckBox";
-            ActiveCheckBox.Size = new Size(127, 42);
+            ActiveCheckBox.Size = new Size(149, 49);
             ActiveCheckBox.TabIndex = 8;
             ActiveCheckBox.Text = "Active?";
             ActiveCheckBox.UseVisualStyleBackColor = true;
@@ -135,7 +136,7 @@
             label5.Location = new Point(4, 174);
             label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
-            label5.Size = new Size(90, 38);
+            label5.Size = new Size(106, 45);
             label5.TabIndex = 6;
             label5.Text = "Notes";
             // 
@@ -145,7 +146,7 @@
             ProjectPhaseTextBox.Margin = new Padding(4, 2, 4, 2);
             ProjectPhaseTextBox.Name = "ProjectPhaseTextBox";
             ProjectPhaseTextBox.PlaceholderText = "000";
-            ProjectPhaseTextBox.Size = new Size(135, 43);
+            ProjectPhaseTextBox.Size = new Size(135, 51);
             ProjectPhaseTextBox.TabIndex = 5;
             ProjectPhaseTextBox.TextAlign = HorizontalAlignment.Right;
             // 
@@ -155,7 +156,7 @@
             ProjectNumberTextBox.Margin = new Padding(4, 2, 4, 2);
             ProjectNumberTextBox.Name = "ProjectNumberTextBox";
             ProjectNumberTextBox.PlaceholderText = "00000.000";
-            ProjectNumberTextBox.Size = new Size(261, 43);
+            ProjectNumberTextBox.Size = new Size(261, 51);
             ProjectNumberTextBox.TabIndex = 4;
             // 
             // label4
@@ -164,7 +165,7 @@
             label4.Location = new Point(313, 87);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
-            label4.Size = new Size(90, 38);
+            label4.Size = new Size(105, 45);
             label4.TabIndex = 3;
             label4.Text = "Phase";
             label4.TextAlign = ContentAlignment.TopRight;
@@ -175,7 +176,7 @@
             label3.Location = new Point(4, 87);
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new Size(213, 38);
+            label3.Size = new Size(247, 45);
             label3.TabIndex = 2;
             label3.Text = "Project Number";
             // 
@@ -184,7 +185,7 @@
             ProjectNameTextBox.Location = new Point(4, 41);
             ProjectNameTextBox.Margin = new Padding(4, 2, 4, 2);
             ProjectNameTextBox.Name = "ProjectNameTextBox";
-            ProjectNameTextBox.Size = new Size(402, 43);
+            ProjectNameTextBox.Size = new Size(402, 51);
             ProjectNameTextBox.TabIndex = 1;
             // 
             // label2
@@ -193,7 +194,7 @@
             label2.Location = new Point(4, 0);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(185, 38);
+            label2.Size = new Size(215, 45);
             label2.TabIndex = 0;
             label2.Text = "Project Name";
             // 
@@ -210,7 +211,7 @@
             // 
             // ProjectManagerForm
             // 
-            AutoScaleDimensions = new SizeF(15F, 37F);
+            AutoScaleDimensions = new SizeF(18F, 45F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(932, 703);
             Controls.Add(AddProjectButton);
@@ -218,9 +219,10 @@
             Controls.Add(ProjectsListBox);
             Controls.Add(label1);
             Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(6, 7, 6, 7);
             Name = "ProjectManagerForm";
-            Text = "ProjectManagerForm";
+            Text = "Add/Edit Project";
             FormClosing += ProjectManagerForm_FormClosing;
             ProjectFormPanel.ResumeLayout(false);
             ProjectFormPanel.PerformLayout();
